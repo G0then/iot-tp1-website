@@ -8,7 +8,7 @@ export type NoDataContainerProps = {
 
 //Construção do objeto default
 const defaultNoDataContainer: NoDataContainerProps = {
-  text: "Erro ao carregar os dados!",
+  text: "Sem dados!",
   fontSize: "1.2em",
   margin: "1em",
   disableMargin: false,

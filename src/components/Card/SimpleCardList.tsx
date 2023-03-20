@@ -4,7 +4,7 @@ type SimpleCardListProps = {
   title: string;
   text: string;
   date?: string;
-  version?: int;
+  version?: number;
 };
 
 export default function SimpleCardList({
@@ -15,7 +15,7 @@ export default function SimpleCardList({
 }: SimpleCardListProps) {
     console.log(title)
 
-  if(version == 2){
+  if(version === 2){
     return (
     <div className="bg-[color:var(--color-whiteDark-main)]  rounded-lg w-full p-4">
       <p className="text-[color:var(--color-blackLight-main)] text-lg font-bold">

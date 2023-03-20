@@ -21,10 +21,12 @@ export default function HomeTopInfoGrid() {
 
   console.log(systemCountsError)
 
+  //Ocorreu um erro
   if (systemCountsError) {
-    return <NoData/>;
+    return <NoData text="Erro ao carregar os dados!"/>;
   }
 
+  //A carregar os dados
   if (systemCountsLoading) {
     return <LoadingData/>;
   }

@@ -11,6 +11,9 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex space-x-4">
+       <Link href="/" className="link">
+          Dashboard
+        </Link>
         <Link href="/devices" className="link">
           Devices
         </Link>

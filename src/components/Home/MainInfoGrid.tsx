@@ -35,7 +35,7 @@ export default function HomeMainInfoGrid() {
   } = useQuery<any>(urlGetLogs);
 
   if (readingsError || alertsError || logsError) {
-    return <NoData/>;
+    return <NoData text="Erro ao carregar os dados!"/>;
   }
 
   if (readingsLoading || alertsLoading || logsLoading) {
