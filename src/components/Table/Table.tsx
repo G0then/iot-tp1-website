@@ -22,7 +22,7 @@ export default function Table(props: TableProps) {
   const { rows, columns, pageSize, getRowId } = resolvedProps
 
   return (
-    <div style={{ minHeight: "100%", width: '100%' }}>
+    <div className="min-h-full w-full">
     <DataGrid
       rows={rows}
       // loading={irrigationPlanTypes.length === 0} //Loading enquanto os dados estão a ser carregados

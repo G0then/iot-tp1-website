@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import TabItem from "../Tabs/TabItem";
 import DeviceAlertsInfo from "./DeviceAlertsInfo";
+import DeviceLocationInfo from "./DeviceLocationInfo";
 import DeviceLogsInfo from "./DeviceLogsInfo";
 import DeviceReadingsInfo from "./DeviceReadingsInfo";
 import DeviceSensorInfo from "./DeviceSensorInfo";
@@ -50,6 +51,8 @@ export default function DeviceMainInfo({
             <DeviceAlertsInfo pid={pid} />
           ) : selectedSection === "Logs" ? (
             <DeviceLogsInfo pid={pid} />
+          ) : selectedSection === "Location" ? (
+            <DeviceLocationInfo deviceInfo={deviceInfo} />
           ) : (
             <div>Em Construção...</div>
           )}
