@@ -7,7 +7,7 @@
 }
 
 .line{
-  @apply h-px w-full opacity-50 my-2
+  @apply h-px w-full opacity-50 my-2 bg-black
 }
 
 .title{

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { IconType } from "react-icons";
+import classNames from "classnames";
 
 type SimpleInfoCardProps = {
   title: string;
@@ -21,15 +22,17 @@ export default function SimpleInfoCard({
   href,
   version,
 }: SimpleInfoCardProps) {
+  const Component = href ? Link : "div";
+
   if (version === 2) {
     return (
-      <Link href={href}>
+      <Component {...(href && { href })}>
         <div
-          className={
-            bottomText
-              ? "flex flex-col bg-white p-5 w-full max-w-full h-44 rounded-lg space-y-3 cursor-pointer sm:hover:shadow-slate-400 sm:shadow-md transition-shadow duration-200 group"
-              : "flex flex-col bg-white p-5 w-full max-w-full h-36 rounded-lg space-y-3 cursor-pointer sm:hover:shadow-slate-400 sm:shadow-md transition-shadow duration-200 group"
-          }
+          className={classNames(
+            "flex flex-col bg-white p-5 w-full max-w-full rounded-lg space-y-3 sm:shadow-md transition-shadow duration-200 group",
+            bottomText ? "h-44" : "h-36",
+            href && "sm:hover:shadow-slate-400"
+          )}
         >
           <h2 className="text-lg font-bold line-clamp-2">
             {title} -
@@ -38,17 +41,24 @@ export default function SimpleInfoCard({
           <p className="text-sm font-medium [color:var(--color-grey-main)] line-clamp-2 flex-1">
             {description}
           </p>
-          {bottomText && <p className="text-sm bottom-0 right-0 [color:var(--color-grey-main)] font-semibold text-end line-clamp-1">
-             {bottomText}
-          </p>}
+          {bottomText && (
+            <p className="text-sm bottom-0 right-0 [color:var(--color-grey-main)] font-semibold text-end line-clamp-1">
+              {bottomText}
+            </p>
+          )}
         </div>
-      </Link>
+      </Component>
     );
   }
 
   return (
-    <Link href={href}>
-      <div className="bg-white p-5 w-full h-32 rounded-lg space-y-3 cursor-pointer sm:hover:shadow-slate-400 sm:shadow-md transition-shadow duration-200 group">
+    <Component {...(href && { href })}>
+      <div
+        className={classNames(
+          "bg-white p-5 w-full h-32 rounded-lg space-y-3 sm:shadow-md transition-shadow duration-200 group",
+          href && "sm:hover:shadow-slate-400"
+        )}
+      >
         <div className="flex items-center justify-between">
           <h2 className="text-medium font-semibold text-[color:var(--color-grey-main)]">
             {title}
@@ -62,6 +72,6 @@ export default function SimpleInfoCard({
           {description && <span className="text-lg ml-1">{description}</span>}
         </p>
       </div>
-    </Link>
+    </Component>
   );
 }
