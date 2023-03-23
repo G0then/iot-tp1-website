@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import TabItem from "../Tabs/TabItem";
 import SensorAlertsInfo from "./SensorAlertsInfo";
+import SensorDataStatisticsInfo from "./SensorDataStatisticsInfo";
 import SensorLogsInfo from "./SensorLogsInfo";
 import SensorReadingsInfo from "./SensorReadingsInfo";
 
@@ -11,7 +12,7 @@ const sectionArray = [
   "Alerts",
   "Logs",
   "Chart",
-  "Location",
+  "Data Statistics",
 ];
 
 type SensorMainInfoProps = {
@@ -48,8 +49,8 @@ export default function SensorMainInfo({
             <SensorAlertsInfo device_pid={device_pid} sensor_pid={sensor_pid} />
           ) : selectedSection === "Logs" ? (
             <SensorLogsInfo device_pid={device_pid} sensor_pid={sensor_pid} />
-          ) : selectedSection === "Location" ? (
-            <SensorLocationInfo sensorInfo={sensorInfo} />
+          ) : selectedSection === "Data Statistics" ? (
+            <SensorDataStatisticsInfo device_pid={device_pid} sensor_pid={sensor_pid}/>
           ) : (
             <div>Em Construção...</div>
           )}
