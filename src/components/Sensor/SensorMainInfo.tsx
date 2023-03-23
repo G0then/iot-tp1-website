@@ -2,14 +2,11 @@
 
 import React, { useState } from "react";
 import TabItem from "../Tabs/TabItem";
-import DeviceAlertsInfo from "./DeviceAlertsInfo";
-import DeviceLocationInfo from "./DeviceLocationInfo";
-import DeviceLogsInfo from "./DeviceLogsInfo";
-import DeviceReadingsInfo from "./DeviceReadingsInfo";
-import DeviceSensorInfo from "./DeviceSensorInfo";
+import SensorAlertsInfo from "./SensorAlertsInfo";
+import SensorLogsInfo from "./SensorLogsInfo";
+import SensorReadingsInfo from "./SensorReadingsInfo";
 
 const sectionArray = [
-  "Sensors",
   "Readings",
   "Alerts",
   "Logs",
@@ -17,15 +14,17 @@ const sectionArray = [
   "Location",
 ];
 
-type DeviceMainInfoProps = {
-  deviceInfo: any;
+type SensorMainInfoProps = {
+  sensorInfo: any;
+  sensor_pid: string;
   device_pid: string;
 };
 
-export default function DeviceMainInfo({
-  deviceInfo,
+export default function SensorMainInfo({
+  sensorInfo,
+  sensor_pid,
   device_pid,
-}: DeviceMainInfoProps) {
+}: SensorMainInfoProps) {
   const [selectedSection, setSelectedSection] = useState(sectionArray[0]);
 
   return (
@@ -43,16 +42,14 @@ export default function DeviceMainInfo({
 
       <div className="flex max-h-[32rem] flex-col justify-center overflow-auto bg-white rounded-lg sm:shadow-md transition-shadow duration-200">
         <div className="flex h-auto flex-col justify-center overflow-auto m-5">
-          {selectedSection === "Sensors" ? (
-            <DeviceSensorInfo deviceInfo={deviceInfo} />
-          ) : selectedSection === "Readings" ? (
-            <DeviceReadingsInfo device_pid={device_pid} />
+          {selectedSection === "Readings" ? (
+            <SensorReadingsInfo sensor_pid={sensor_pid} />
           ) : selectedSection === "Alerts" ? (
-            <DeviceAlertsInfo device_pid={device_pid} />
+            <SensorAlertsInfo device_pid={device_pid} sensor_pid={sensor_pid} />
           ) : selectedSection === "Logs" ? (
-            <DeviceLogsInfo device_pid={device_pid} />
+            <SensorLogsInfo device_pid={device_pid} sensor_pid={sensor_pid} />
           ) : selectedSection === "Location" ? (
-            <DeviceLocationInfo deviceInfo={deviceInfo} />
+            <SensorLocationInfo sensorInfo={sensorInfo} />
           ) : (
             <div>Em Construção...</div>
           )}

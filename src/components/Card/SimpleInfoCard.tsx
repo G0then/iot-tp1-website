@@ -30,7 +30,7 @@ export default function SimpleInfoCard({
         <div
           className={classNames(
             "flex flex-col bg-white p-5 w-full max-w-full rounded-lg space-y-3 sm:shadow-md transition-shadow duration-200 group",
-            bottomText ? "h-44" : "h-36",
+            bottomText ? "h-44" : "h-40",
             href && "sm:hover:shadow-slate-400"
           )}
         >
@@ -67,7 +67,7 @@ export default function SimpleInfoCard({
             <Icon className="bg-[color:var(--color-white-main)]  border border-[color:var(--color-greyLighter-main)] rounded-full text-4xl p-2" />
           )}
         </div>
-        <p className="text-3xl font-semibold flex items-center">
+        <p className="text-3xl font-semibold capitalize truncate text-ellipsis">
           {text}
           {description && <span className="text-lg ml-1">{description}</span>}
         </p>

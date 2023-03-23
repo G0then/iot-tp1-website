@@ -4,7 +4,7 @@ import Table from "../Table/Table";
 
 const columns: GridColDef[] = [
   {
-    field: "sensor_name",
+    field: "name",
     headerName: "Sensor Name",
     // minWidth: 350,
     flex: 1,

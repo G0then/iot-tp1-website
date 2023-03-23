@@ -13,8 +13,6 @@ export default function SimpleCardList({
   date,
   version
 }: SimpleCardListProps) {
-    console.log(title)
-
   if(version === 2){
     return (
     <div className="bg-[color:var(--color-whiteDark-main)]  rounded-lg w-full p-4">

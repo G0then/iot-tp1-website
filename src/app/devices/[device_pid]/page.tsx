@@ -7,17 +7,17 @@ import { LoadingData } from "@/components/Loading/LoadingData";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import { useQuery } from "@/utils/requests/getSwr";
 
-export default function DevicesPage({params}) {
-  const pid = params.pid;
+export default function DevicePidPage({params}) {
+  const device_pid = params.device_pid;
 
-  const urlGetDeviceInfo = `devices/${pid}`;
+  const urlGetDeviceInfo = `devices/${device_pid}`;
   const {
     data: deviceInfo,
     isLoading: deviceInfoLoading,
     error: deviceInfoError,
   } = useQuery<any>(urlGetDeviceInfo);
 
-  const urlGetDeviceCountDocuments = `devices/${pid}/count_documents`;
+  const urlGetDeviceCountDocuments = `devices/${device_pid}/count_documents`;
   const {
     data: deviceCountDocuments,
     isLoading: deviceCountDocumentsLoading,
@@ -44,7 +44,7 @@ export default function DevicesPage({params}) {
       />
       
       <DeviceTopInfoGrid deviceInfo={deviceInfo} deviceCountDocuments={deviceCountDocuments}/>
-      <DeviceMainInfo pid={pid} deviceInfo={deviceInfo}/>
+      <DeviceMainInfo device_pid={device_pid} deviceInfo={deviceInfo}/>
     </div>
   );
 }

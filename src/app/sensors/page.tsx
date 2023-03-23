@@ -30,7 +30,7 @@ export default function SensorsPage() {
 
   //Filtra a lista de sensors pelo valor introduzido na searchBox
   //   const sensorListFiltered = sensors.filter((x) =>
-  //     x.sensor_name.toLowerCase().includes(nameFilter.toLowerCase())
+  //     x.name.toLowerCase().includes(nameFilter.toLowerCase())
   //   );
 
   console.log(sensors);
@@ -49,8 +49,8 @@ export default function SensorsPage() {
               <SimpleInfoCard
                 key={sensor.pid}
                 title={sensor.pid}
-                text={sensor.sensor_name}
-                href={`/sensors/${sensor.pid}`}
+                text={sensor.name}
+                href={`/devices/${sensorDevice.pid}/sensors/${sensor.pid}`}
                 version={2}
                 description={sensor.description}
                 bottomText={sensorDevice.pid}

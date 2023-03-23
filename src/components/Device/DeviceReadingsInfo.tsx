@@ -34,11 +34,11 @@ const columns: GridColDef[] = [
 ];
 
 type DeviceReadingsInfoProps = {
-  pid: string;
+  device_pid: string;
 };
 
-export default function DeviceReadingsInfo({ pid }: DeviceReadingsInfoProps) {
-  const urlGetDeviceReadings = `devices/${pid}/readings`;
+export default function DeviceReadingsInfo({ device_pid }: DeviceReadingsInfoProps) {
+  const urlGetDeviceReadings = `devices/${device_pid}/readings`;
   const {
     data: deviceReadings,
     isLoading: deviceReadingsLoading,

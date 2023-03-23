@@ -19,8 +19,6 @@ export default function HomeTopInfoGrid() {
     error: systemCountsError,
   } = useQuery<SystemNumDocumentsDto>(urlGetSystemCount);
 
-  console.log(systemCountsError)
-
   //Ocorreu um erro
   if (systemCountsError) {
     return <NoData text="Erro ao carregar os dados!"/>;

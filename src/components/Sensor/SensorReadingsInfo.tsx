@@ -10,32 +10,8 @@ import Table from "../Table/Table";
 
 const columns: GridColDef[] = [
   {
-    field: "sensor_pid",
-    headerName: "Sensor PID",
-    flex: 1,
-    headerAlign: "center",
-  },
-  {
-    field: "type",
-    headerName: "Alert Type",
-    flex: 1,
-    headerAlign: "center",
-  },
-  {
-    field: "description",
-    headerName: "Message",
-    flex: 1,
-    headerAlign: "center",
-  },
-  {
     field: "value",
     headerName: "Value",
-    flex: 1,
-    headerAlign: "center",
-  },
-  {
-    field: "cleared",
-    headerName: "State",
     flex: 1,
     headerAlign: "center",
   },
@@ -51,30 +27,30 @@ const columns: GridColDef[] = [
   },
 ];
 
-type DeviceAlertsInfoProps = {
-  device_pid: string;
+type SensorReadingsInfoProps = {
+  sensor_pid: string;
 };
 
-export default function DeviceAlertsInfo({ device_pid }: DeviceAlertsInfoProps) {
-  const urlGetDeviceAlerts = `devices/${device_pid}/alerts`;
+export default function SensorReadingsInfo({ sensor_pid }: SensorReadingsInfoProps) {
+  const urlGetSensorReadings = `sensors/${sensor_pid}/readings`;
   const {
-    data: deviceAlerts,
-    isLoading: deviceAlertsLoading,
-    error: deviceAlertsError,
-  } = useQuery<any>(urlGetDeviceAlerts);
+    data: sensorReadings,
+    isLoading: sensorReadingsLoading,
+    error: sensorReadingsError,
+  } = useQuery<any>(urlGetSensorReadings);
 
   //Ocorreu um erro
-  if (deviceAlertsError) {
+  if (sensorReadingsError) {
     return <NoData text="Erro ao carregar os dados!" />;
   }
 
   //A carregar os dados
-  if (deviceAlertsLoading) {
+  if (sensorReadingsLoading) {
     return <LoadingData />;
   }
 
   return (
-    <Table rows={deviceAlerts} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
+    <Table rows={sensorReadings} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
       
   );
 }

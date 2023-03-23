@@ -10,12 +10,6 @@ import Table from "../Table/Table";
 
 const columns: GridColDef[] = [
   {
-    field: "sensor_pid",
-    headerName: "Sensor PID",
-    flex: 1,
-    headerAlign: "center",
-  },
-  {
     field: "type",
     headerName: "Alert Type",
     flex: 1,
@@ -51,30 +45,31 @@ const columns: GridColDef[] = [
   },
 ];
 
-type DeviceAlertsInfoProps = {
+type SensorAlertsInfoProps = {
+  sensor_pid: string;
   device_pid: string;
 };
 
-export default function DeviceAlertsInfo({ device_pid }: DeviceAlertsInfoProps) {
-  const urlGetDeviceAlerts = `devices/${device_pid}/alerts`;
+export default function SensorAlertsInfo({ sensor_pid, device_pid }: SensorAlertsInfoProps) {
+  const urlGetSensorAlerts = `devices/${device_pid}/sensors/${sensor_pid}/alerts`;
   const {
-    data: deviceAlerts,
-    isLoading: deviceAlertsLoading,
-    error: deviceAlertsError,
-  } = useQuery<any>(urlGetDeviceAlerts);
+    data: sensorAlerts,
+    isLoading: sensorAlertsLoading,
+    error: sensorAlertsError,
+  } = useQuery<any>(urlGetSensorAlerts);
 
   //Ocorreu um erro
-  if (deviceAlertsError) {
+  if (sensorAlertsError) {
     return <NoData text="Erro ao carregar os dados!" />;
   }
 
   //A carregar os dados
-  if (deviceAlertsLoading) {
+  if (sensorAlertsLoading) {
     return <LoadingData />;
   }
 
   return (
-    <Table rows={deviceAlerts} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
+    <Table rows={sensorAlerts} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
       
   );
 }

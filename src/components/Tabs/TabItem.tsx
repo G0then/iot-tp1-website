@@ -8,7 +8,6 @@ type TabItemProps = {
 };
 
 export default function TabItem({ text, selected, handleOnClick }: TabItemProps) {
-  console.log(selected)
   return (
     <p
       className={classNames(

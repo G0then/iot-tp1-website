@@ -34,11 +34,11 @@ const columns: GridColDef[] = [
 ];
 
 type DeviceAlertsInfoProps = {
-  pid: string;
+  device_pid: string;
 };
 
-export default function DeviceAlertsInfo({ pid }: DeviceAlertsInfoProps) {
-  const urlGetDeviceLogs = `devices/${pid}/logs`;
+export default function DeviceAlertsInfo({ device_pid }: DeviceAlertsInfoProps) {
+  const urlGetDeviceLogs = `devices/${device_pid}/logs`;
   const {
     data: deviceLogs,
     isLoading: deviceLogsLoading,
