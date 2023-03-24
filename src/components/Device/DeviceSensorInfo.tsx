@@ -1,7 +1,9 @@
+'use client';
+
 import React from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import Table from "../Table/Table";
-
+import { useRouter } from 'next/navigation';
 const columns: GridColDef[] = [
   {
     field: "name",
@@ -22,13 +24,16 @@ const columns: GridColDef[] = [
     headerAlign: "center",
   },
   {
-    field: "unit",
+    field: "unit_name",
     headerName: "Unit",
     // minWidth: 350,
     flex: 1,
     // filterable: false,
     // resizable: true,
     headerAlign: "center",
+    valueGetter: (params) => {
+      return `${params.row.unit_name} (${params.row.unit})`;
+    },
   },
   {
     field: "status",
@@ -43,14 +48,17 @@ const columns: GridColDef[] = [
 
 type DeviceSensorInfoProps = {
   deviceInfo: any;
+  device_pid: string;
 };
 
 export default function DeviceSensorInfo({
   deviceInfo,
+  device_pid,
 }: DeviceSensorInfoProps) {
   const { sensors } = deviceInfo;
+  const { push } = useRouter();
 
   return (
-    <Table rows={sensors} columns={columns} getRowId={(row) => row.pid}/>
+    <Table rows={sensors} columns={columns} getRowId={(row) => row.pid} onRowClick={(rowData) => push(`/devices/${device_pid}/sensors/${rowData.row.pid}`)}/>
   );
 }

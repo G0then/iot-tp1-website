@@ -6,6 +6,7 @@ type TableProps = {
     columns: GridColDef[];
     pageSize?: number;
     getRowId: (row: any) => GridRowId;
+    onRowClick?: (rowData: any) => void;
 }
 
 //Construção do objeto default
@@ -19,7 +20,7 @@ const defaultTableProps: TableProps = {
 export default function Table(props: TableProps) {
   const resolvedProps = {...defaultTableProps, ...props};
 
-  const { rows, columns, pageSize, getRowId } = resolvedProps
+  const { rows, columns, pageSize, getRowId, onRowClick } = resolvedProps
 
   return (
     <div className="min-h-full w-full">
@@ -42,7 +43,7 @@ export default function Table(props: TableProps) {
       // checkboxSelection // Mostra as checkbox
       // disableColumnMenu // Deixa de mostrar os 3 pontos (icon de opções)
       // disableColumnSelector
-      // onRowClick={(rowData) => onClickRow(rowData.row)}
+      onRowClick={onRowClick}
       // getRowClassName={(params) => `super-app-theme--${params.row.status}`}
       sx={{
         width: '100%',

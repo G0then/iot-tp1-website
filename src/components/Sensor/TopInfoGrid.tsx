@@ -18,7 +18,7 @@ export default function SensorTopInfoGrid({
   sensorInfo,
   sensorCountDocuments,
 }: SensorTopInfoGrid) {
-  const { status, unit } = sensorInfo;
+  const { status, unit, unit_name } = sensorInfo;
   const { readings, logs, alerts } = sensorCountDocuments;
 
   return (
@@ -42,7 +42,7 @@ export default function SensorTopInfoGrid({
         Icon={IoMdAlert}
       />
       <SimpleInfoCard title="Logs" text={logs} Icon={IoMdText} />
-      <SimpleInfoCard title="Unit" text={unit} Icon={IoMdText} />
+      <SimpleInfoCard title="Unit" text={unit_name} description={`(${unit})`} Icon={IoMdText} />
     </div>
   );
 }
