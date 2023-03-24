@@ -1,5 +1,6 @@
 "use client";
 
+import { ReadingDto } from "@/types/reading";
 import { useQuery } from "@/utils/requests/getSwr";
 import { GridColDef } from "@mui/x-data-grid";
 import { DateTime } from "luxon";
@@ -13,19 +14,19 @@ const columns: GridColDef[] = [
     field: "sensor_pid",
     headerName: "Sensor PID",
     flex: 1,
-    headerAlign: "center",
+    headerAlign: "left",
   },
   {
     field: "value",
     headerName: "Value",
     flex: 1,
-    headerAlign: "center",
+    headerAlign: "left",
   },
   {
     field: "timestamp",
     headerName: "Date",
     flex: 1,
-    headerAlign: "center",
+    headerAlign: "left",
     //Para mostrar o valor da propriedade de objetos nested
     valueGetter: (params) => {
       return DateTime.fromISO(params.row.timestamp.$date).toFormat("FF");
@@ -43,11 +44,11 @@ export default function DeviceReadingsInfo({ device_pid }: DeviceReadingsInfoPro
     data: deviceReadings,
     isLoading: deviceReadingsLoading,
     error: deviceReadingsError,
-  } = useQuery<any>(urlGetDeviceReadings);
+  } = useQuery<ReadingDto[]>(urlGetDeviceReadings);
 
   //Ocorreu um erro
   if (deviceReadingsError) {
-    return <NoData text="Erro ao carregar os dados!" />;
+    return <NoData text="Error fetching data!!" />;
   }
 
   //A carregar os dados

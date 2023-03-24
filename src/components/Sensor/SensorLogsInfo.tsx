@@ -1,5 +1,6 @@
 "use client";
 
+import { LogDto } from "@/types/log";
 import { useQuery } from "@/utils/requests/getSwr";
 import { GridColDef } from "@mui/x-data-grid";
 import { DateTime } from "luxon";
@@ -10,16 +11,16 @@ import Table from "../Table/Table";
 
 const columns: GridColDef[] = [
   {
-    field: "description",
+    field: "message",
     headerName: "Message",
     flex: 1,
-    headerAlign: "center",
+    headerAlign: "left",
   },
   {
     field: "timestamp",
     headerName: "Date",
     flex: 1,
-    headerAlign: "center",
+    headerAlign: "left",
     //Para mostrar o valor da propriedade de objetos nested
     valueGetter: (params) => {
       return DateTime.fromISO(params.row.timestamp.$date).toFormat("FF");
@@ -38,11 +39,11 @@ export default function SensorLogsInfo({ sensor_pid, device_pid }: SensorLogsInf
     data: sensorLogs,
     isLoading: sensorLogsLoading,
     error: sensorLogsError,
-  } = useQuery<any>(urlGetSensorLogs);
+  } = useQuery<LogDto[]>(urlGetSensorLogs);
 
   //Ocorreu um erro
   if (sensorLogsError) {
-    return <NoData text="Erro ao carregar os dados!" />;
+    return <NoData text="Error fetching data!!" />;
   }
 
   //A carregar os dados

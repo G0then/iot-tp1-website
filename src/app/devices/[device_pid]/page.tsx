@@ -5,9 +5,11 @@ import DeviceTopInfoGrid from "@/components/Device/TopInfoGrid";
 import { NoData } from "@/components/Error/NoData";
 import { LoadingData } from "@/components/Loading/LoadingData";
 import PageTitle from "@/components/PageTitle/PageTitle";
+import { DeviceDto } from "@/types/device";
+import { CountDocumentsDto } from "@/types/documents";
 import { useQuery } from "@/utils/requests/getSwr";
 
-export default function DevicePidPage({params}) {
+export default function DevicePidPage({params}: any) {
   const device_pid = params.device_pid;
 
   const urlGetDeviceInfo = `devices/${device_pid}`;
@@ -15,18 +17,18 @@ export default function DevicePidPage({params}) {
     data: deviceInfo,
     isLoading: deviceInfoLoading,
     error: deviceInfoError,
-  } = useQuery<any>(urlGetDeviceInfo);
+  } = useQuery<DeviceDto>(urlGetDeviceInfo);
 
   const urlGetDeviceCountDocuments = `devices/${device_pid}/count_documents`;
   const {
     data: deviceCountDocuments,
     isLoading: deviceCountDocumentsLoading,
     error: deviceCountDocumentsError,
-  } = useQuery<any>(urlGetDeviceCountDocuments);
+  } = useQuery<CountDocumentsDto>(urlGetDeviceCountDocuments);
 
   //Ocorreu um erro
   if (deviceInfoError || deviceCountDocumentsError) {
-    return <NoData text="Erro ao carregar os dados!"/>;
+    return <NoData text="Error fetching data!!"/>;
   }
 
   //A carregar os dados

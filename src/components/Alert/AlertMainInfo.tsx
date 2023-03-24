@@ -1,15 +1,18 @@
 "use client";
 
 import { AlertDto } from "@/types/alert";
-import { useQuery } from "@/utils/requests/getSwr";
 import { GridColDef } from "@mui/x-data-grid";
 import { DateTime } from "luxon";
 import React from "react";
-import { NoData } from "../Error/NoData";
-import { LoadingData } from "../Loading/LoadingData";
 import Table from "../Table/Table";
 
 const columns: GridColDef[] = [
+  {
+    field: "device_pid",
+    headerName: "Device PID",
+    flex: 1,
+    headerAlign: "left",
+  },
   {
     field: "sensor_pid",
     headerName: "Sensor PID",
@@ -52,30 +55,23 @@ const columns: GridColDef[] = [
   },
 ];
 
-type DeviceAlertsInfoProps = {
-  device_pid: string;
+type AlertMainInfoProps = {
+  alerts: AlertDto[];
 };
 
-export default function DeviceAlertsInfo({ device_pid }: DeviceAlertsInfoProps) {
-  const urlGetDeviceAlerts = `devices/${device_pid}/alerts`;
-  const {
-    data: deviceAlerts,
-    isLoading: deviceAlertsLoading,
-    error: deviceAlertsError,
-  } = useQuery<AlertDto[]>(urlGetDeviceAlerts);
-
-  //Ocorreu um erro
-  if (deviceAlertsError) {
-    return <NoData text="Error fetching data!!" />;
-  }
-
-  //A carregar os dados
-  if (deviceAlertsLoading) {
-    return <LoadingData />;
-  }
-
+export default function AlertMainInfo({ alerts }: AlertMainInfoProps) {
   return (
-    <Table rows={deviceAlerts} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
-      
+    <div className="flex w-full flex-col space-y-2">
+      <div className="flex max-h-[32rem] flex-col justify-center overflow-auto bg-white rounded-lg sm:shadow-md transition-shadow duration-200">
+        <div className="flex h-auto flex-col justify-center overflow-auto m-5">
+          <Table
+            rows={alerts}
+            columns={columns}
+            pageSize={25}
+            getRowId={(row: AlertDto) => row._id.$oid}
+          />
+        </div>
+      </div>
+    </div>
   );
 }

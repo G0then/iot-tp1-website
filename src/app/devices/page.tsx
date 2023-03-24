@@ -5,6 +5,7 @@ import { NoData } from "@/components/Error/NoData";
 import Filter from "@/components/Filter/Filter";
 import { LoadingData } from "@/components/Loading/LoadingData";
 import PageTitle from "@/components/PageTitle/PageTitle";
+import { DeviceDto } from "@/types/device";
 import { useDebounceQuery, useQuery } from "@/utils/requests/getSwr";
 import { useMemo, useState } from "react";
 
@@ -12,20 +13,14 @@ export default function DevicesPage() {
   const [nameFilter, setNameFilter] = useState<string>("");
   const urlGetDevices = nameFilter ? `devices?filter=${nameFilter}` : `devices`;
 
-  // const {
-  //   data: devices,
-  //   isLoading: devicesLoading,
-  //   error: devicesError,
-  // } = useQuery<any>(urlGetDevices);
-
   const {
     data: devices,
     isLoading: devicesLoading,
     error: devicesError,
-  } = useDebounceQuery(urlGetDevices);
+  } = useDebounceQuery<DeviceDto[]>(urlGetDevices);
 
   //Filtra a lista de devices pelo valor introduzido na searchBox
-  const deviceListFiltered = useMemo(
+  const deviceListFiltered: DeviceDto[] | undefined = useMemo(
     () =>
       devices &&
       devices.filter(
@@ -37,7 +32,7 @@ export default function DevicesPage() {
   );
 
   if (devicesError) {
-    return <NoData text="Erro ao carregar os dados!" />;
+    return <NoData text="Error fetching data!" />;
   }
 
   if (devicesLoading) {
@@ -58,14 +53,14 @@ export default function DevicesPage() {
           placeholder="Search for device name or pid"
           searchOptions={
             <p className="text-sm text-gray-500">
-              {deviceListFiltered.length} items founded
+              {deviceListFiltered ? deviceListFiltered.length : "0"} items founded
             </p>
           }
         />
       </div>
 
-      {devices && devices.length === 0 ? 
-      <p className="my-4 text-lg font-semibold">Sem dados!</p>
+      {!deviceListFiltered || deviceListFiltered.length === 0 ? 
+      <p className="my-4 text-lg font-semibold">No devices!</p>
       : <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6 mx-auto">
         {deviceListFiltered.map((device) => (
           <SimpleInfoCard

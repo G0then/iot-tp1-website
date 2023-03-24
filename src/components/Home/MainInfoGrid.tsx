@@ -11,6 +11,9 @@ import SimpleCardList from "../Card/SimpleCardList";
 import { DateTime } from "luxon";
 import { NoData } from "../Error/NoData";
 import { LoadingData } from "../Loading/LoadingData";
+import { LogDto } from "@/types/log";
+import { AlertDto } from "@/types/alert";
+import { ReadingDto } from "@/types/reading";
 
 export default function HomeMainInfoGrid() {
   const urlGetReadings = "readings?limit=5&sort=-1";
@@ -18,24 +21,24 @@ export default function HomeMainInfoGrid() {
     data: readings,
     isLoading: readingsLoading,
     error: readingsError,
-  } = useQuery<any>(urlGetReadings);
+  } = useQuery<ReadingDto[]>(urlGetReadings);
 
   const urlGetAlerts = "alerts?limit=5&sort=-1";
   const {
     data: alerts,
     isLoading: alertsLoading,
     error: alertsError,
-  } = useQuery<any>(urlGetAlerts);
+  } = useQuery<AlertDto[]>(urlGetAlerts);
 
   const urlGetLogs = "logs?limit=5&sort=-1";
   const {
     data: logs,
     isLoading: logsLoading,
     error: logsError,
-  } = useQuery<any>(urlGetLogs);
+  } = useQuery<LogDto[]>(urlGetLogs);
 
   if (readingsError || alertsError || logsError) {
-    return <NoData text="Erro ao carregar os dados!"/>;
+    return <NoData text="Error fetching data!!"/>;
   }
 
   if (readingsLoading || alertsLoading || logsLoading) {
@@ -57,7 +60,7 @@ export default function HomeMainInfoGrid() {
             <SimpleCardList
               key={log._id.$oid}
               title={log.sensor_pid || log.device_pid}
-              text={log.description}
+              text={log.message}
               date={DateTime.fromISO(log.timestamp.$date).toFormat("FF")}
               version={2}
             />

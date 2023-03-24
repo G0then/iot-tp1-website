@@ -21,7 +21,7 @@ export default function HomeTopInfoGrid() {
 
   //Ocorreu um erro
   if (systemCountsError) {
-    return <NoData text="Erro ao carregar os dados!"/>;
+    return <NoData text="Error fetching data!!"/>;
   }
 
   //A carregar os dados

@@ -2,7 +2,12 @@
 
 import { useEffect } from "react";
 
-export default function Error({ error, reset }: any) {
+type ErroProps = {
+  error: any;
+  reset: () => void;
+}
+
+export default function Error({ error, reset }: ErroProps) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);

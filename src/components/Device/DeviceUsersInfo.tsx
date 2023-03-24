@@ -1,5 +1,6 @@
 "use client";
 
+import { UserDto } from "@/types/user";
 import { useQuery } from "@/utils/requests/getSwr";
 import { GridColDef } from "@mui/x-data-grid";
 import { DateTime } from "luxon";
@@ -13,19 +14,19 @@ const columns: GridColDef[] = [
     field: "username",
     headerName: "Username",
     flex: 1,
-    headerAlign: "center",
+    headerAlign: "left",
   },
   {
     field: "name",
     headerName: "Name",
     flex: 1,
-    headerAlign: "center",
+    headerAlign: "left",
   },
   {
     field: "email",
     headerName: "Email",
     flex: 1,
-    headerAlign: "center",
+    headerAlign: "left",
   },
 ];
 
@@ -39,11 +40,11 @@ export default function DeviceUsersInfo({ device_pid }: DeviceUsersInfoProps) {
     data: deviceUsers,
     isLoading: deviceUsersLoading,
     error: deviceUsersError,
-  } = useQuery<any>(urlGetDeviceUsers);
+  } = useQuery<UserDto[]>(urlGetDeviceUsers);
 
   //Ocorreu um erro
   if (deviceUsersError) {
-    return <NoData text="Erro ao carregar os dados!" />;
+    return <NoData text="Error fetching data!!" />;
   }
 
   //A carregar os dados

@@ -4,6 +4,7 @@ import React from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import Table from "../Table/Table";
 import { useRouter } from 'next/navigation';
+import { DeviceDto } from "@/types/device";
 const columns: GridColDef[] = [
   {
     field: "name",
@@ -12,7 +13,8 @@ const columns: GridColDef[] = [
     flex: 1,
     // filterable: false,
     // resizable: true,
-    headerAlign: "center",
+    headerAlign: "left",
+    // align: 'center',
   },
   {
     field: "description",
@@ -21,7 +23,8 @@ const columns: GridColDef[] = [
     flex: 1,
     // filterable: false,
     // resizable: true,
-    headerAlign: "center",
+    headerAlign: "left",
+    // align: 'center',
   },
   {
     field: "unit_name",
@@ -30,7 +33,8 @@ const columns: GridColDef[] = [
     flex: 1,
     // filterable: false,
     // resizable: true,
-    headerAlign: "center",
+    headerAlign: "left",
+    // align: 'center',
     valueGetter: (params) => {
       return `${params.row.unit_name} (${params.row.unit})`;
     },
@@ -42,12 +46,13 @@ const columns: GridColDef[] = [
     flex: 1,
     // filterable: false,
     // resizable: true,
-    headerAlign: "center",
+    headerAlign: "left",
+    // align: 'center',
   },
 ];
 
 type DeviceSensorInfoProps = {
-  deviceInfo: any;
+  deviceInfo: DeviceDto;
   device_pid: string;
 };
 

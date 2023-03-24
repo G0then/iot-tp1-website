@@ -30,12 +30,12 @@ export const useQuery = <T>(url: string | null, options?: any) => {
   );
 };
 
-export const useDebounceQuery = (
+export const useDebounceQuery = <T>(
   query: string | null
 ) => {
   const debouncedSearch = useDebounce(query, 500);
 
-  return useSWR(debouncedSearch, fetcher);
+  return useSWR<T, Error>(debouncedSearch, fetcher);
 };
 
 export const useDebounce = (

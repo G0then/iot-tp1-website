@@ -1,5 +1,6 @@
 "use client";
 
+import { DataStatisticsDto } from "@/types/data";
 import { useQuery } from "@/utils/requests/getSwr";
 import { GridColDef } from "@mui/x-data-grid";
 import { DateTime } from "luxon";
@@ -22,11 +23,11 @@ export default function SensorDataStatisticsInfo({
     data: dataStatistics,
     isLoading: dataStatisticsLoading,
     error: dataStatisticsError,
-  } = useQuery<any>(urlGetSensorDataStatistics);
+  } = useQuery<DataStatisticsDto>(urlGetSensorDataStatistics);
 
   //Ocorreu um erro
   if (dataStatisticsError) {
-    return <NoData text="Erro ao carregar os dados!" />;
+    return <NoData text="Error fetching data!!" />;
   }
 
   //A carregar os dados

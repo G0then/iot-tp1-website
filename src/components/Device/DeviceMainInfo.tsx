@@ -1,5 +1,6 @@
 "use client";
 
+import { DeviceDto } from "@/types/device";
 import React, { useState } from "react";
 import TabItem from "../Tabs/TabItem";
 import DeviceAlertsInfo from "./DeviceAlertsInfo";
@@ -20,7 +21,7 @@ const sectionArray = [
 ];
 
 type DeviceMainInfoProps = {
-  deviceInfo: any;
+  deviceInfo: DeviceDto;
   device_pid: string;
 };
 

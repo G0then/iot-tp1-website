@@ -26,6 +26,9 @@ const Navbar = () => {
         <Link href="/alerts" className="link">
           Alerts
         </Link>
+        <Link href="/logs" className="link">
+          Logs
+        </Link>
         <Link href="/users" className="link">
           Users
         </Link>

@@ -8,10 +8,12 @@ import {
 } from "react-icons/md";
 import { IoMdAlert, IoMdText } from "react-icons/io";
 import { IoReader } from "react-icons/io5";
+import { DeviceDto } from "@/types/device";
+import { CountDocumentsDto } from "@/types/documents";
 
 type DeviceTopInfoGrid = {
-  deviceInfo: any;
-  deviceCountDocuments: any;
+  deviceInfo: DeviceDto;
+  deviceCountDocuments: CountDocumentsDto;
 };
 
 export default function DeviceTopInfoGrid({

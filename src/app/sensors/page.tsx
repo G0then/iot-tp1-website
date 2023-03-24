@@ -5,6 +5,7 @@ import { NoData } from "@/components/Error/NoData";
 import Filter from "@/components/Filter/Filter";
 import { LoadingData } from "@/components/Loading/LoadingData";
 import PageTitle from "@/components/PageTitle/PageTitle";
+import { DeviceDto } from "@/types/device";
 import { useQuery } from "@/utils/requests/getSwr";
 import { useMemo, useState } from "react";
 
@@ -14,7 +15,7 @@ export default function SensorsPage() {
     data: sensors,
     isLoading: sensorsLoading,
     error: sensorsError,
-  } = useQuery<any>(urlGetSensors);
+  } = useQuery<DeviceDto[]>(urlGetSensors);
   const [nameFilter, setNameFilter] = useState<string>("");
 
   //Filtra a lista de sensor pelo valor introduzido na searchBox
@@ -36,7 +37,7 @@ export default function SensorsPage() {
   console.log("lista filtrada", sensorListFiltered);
 
   if (sensorsError) {
-    return <NoData text="Erro ao carregar os dados!" />;
+    return <NoData text="Error fetching data!!" />;
   }
 
   if (sensorsLoading) {

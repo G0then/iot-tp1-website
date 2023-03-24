@@ -1,5 +1,6 @@
 "use client";
 
+import { SensorDto } from "@/types/sensor";
 import React, { useState } from "react";
 import TabItem from "../Tabs/TabItem";
 import SensorAlertsInfo from "./SensorAlertsInfo";
@@ -16,7 +17,7 @@ const sectionArray = [
 ];
 
 type SensorMainInfoProps = {
-  sensorInfo: any;
+  sensorInfo: SensorDto;
   sensor_pid: string;
   device_pid: string;
 };

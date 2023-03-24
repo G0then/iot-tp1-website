@@ -5,11 +5,11 @@ import classNames from "classnames";
 
 type SimpleInfoCardProps = {
   title: string;
-  text: string | number;
+  text?: string | number;
   description?: string;
   bottomText?: string;
   Icon?: IconType;
-  href: string;
+  href?: string;
   version?: number;
 };
 

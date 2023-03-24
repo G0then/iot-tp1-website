@@ -8,10 +8,12 @@ import {
 } from "react-icons/md";
 import { IoMdAlert, IoMdText } from "react-icons/io";
 import { IoReader } from "react-icons/io5";
+import { CountDocumentsDto } from "@/types/documents";
+import { SensorDto } from "@/types/sensor";
 
 type SensorTopInfoGrid = {
-  sensorInfo: any;
-  sensorCountDocuments: any;
+  sensorInfo: SensorDto;
+  sensorCountDocuments: CountDocumentsDto;
 };
 
 export default function SensorTopInfoGrid({

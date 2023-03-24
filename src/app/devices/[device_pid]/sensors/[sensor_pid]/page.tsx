@@ -5,9 +5,11 @@ import { LoadingData } from "@/components/Loading/LoadingData";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import SensorMainInfo from "@/components/Sensor/SensorMainInfo";
 import SensorTopInfoGrid from "@/components/Sensor/TopInfoGrid";
+import { CountDocumentsDto } from "@/types/documents";
+import { SensorDto } from "@/types/sensor";
 import { useQuery } from "@/utils/requests/getSwr";
 
-export default function SensorPidPage({params}) {
+export default function SensorPidPage({ params }: any) {
   const sensor_pid = params.sensor_pid;
   const device_pid = params.device_pid;
 
@@ -16,18 +18,18 @@ export default function SensorPidPage({params}) {
     data: sensorInfo,
     isLoading: sensorInfoLoading,
     error: sensorInfoError,
-  } = useQuery<any>(urlGetSensorInfo);
+  } = useQuery<SensorDto>(urlGetSensorInfo);
 
   const urlGetSensorCountDocuments = `devices/${device_pid}/sensors/${sensor_pid}/count_documents`;
   const {
     data: sensorCountDocuments,
     isLoading: sensorCountDocumentsLoading,
     error: sensorCountDocumentsError,
-  } = useQuery<any>(urlGetSensorCountDocuments);
+  } = useQuery<CountDocumentsDto>(urlGetSensorCountDocuments);
 
   //Ocorreu um erro
   if (sensorInfoError || sensorCountDocumentsError) {
-    return <NoData text="Erro ao carregar os dados!"/>;
+    return <NoData text="Error fetching data!!"/>;
   }
 
   //A carregar os dados

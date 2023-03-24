@@ -1,8 +1,9 @@
+import { DeviceDto } from "@/types/device";
 import React from "react";
 import { GoogleMapEmbed } from "../GoogleMapEmbed/GoogleMapEmbed";
 
 type DeviceAlertsInfoProps = {
-  deviceInfo: any;
+  deviceInfo: DeviceDto;
 };
 
 export default function DeviceLocationInfo({ deviceInfo }: DeviceAlertsInfoProps) {
