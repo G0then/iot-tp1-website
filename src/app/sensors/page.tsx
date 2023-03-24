@@ -2,10 +2,11 @@
 
 import SimpleInfoCard from "@/components/Card/SimpleInfoCard";
 import { NoData } from "@/components/Error/NoData";
+import Filter from "@/components/Filter/Filter";
 import { LoadingData } from "@/components/Loading/LoadingData";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import { useQuery } from "@/utils/requests/getSwr";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function SensorsPage() {
   const urlGetSensors = "sensors";
@@ -15,6 +16,24 @@ export default function SensorsPage() {
     error: sensorsError,
   } = useQuery<any>(urlGetSensors);
   const [nameFilter, setNameFilter] = useState<string>("");
+
+  //Filtra a lista de sensor pelo valor introduzido na searchBox
+  const sensorListFiltered = useMemo(
+    () =>
+      sensors &&
+      sensors.filter(
+        (x) =>
+          x.pid.toLowerCase().includes(nameFilter.toLowerCase()) ||
+          x.sensors.some(
+            (sensor) =>
+              sensor.pid.toLowerCase().includes(nameFilter.toLowerCase()) ||
+              sensor.name.toLowerCase().includes(nameFilter.toLowerCase())
+          )
+      ),
+    [nameFilter, sensors]
+  );
+
+  console.log("lista filtrada", sensorListFiltered);
 
   if (sensorsError) {
     return <NoData text="Erro ao carregar os dados!" />;
@@ -42,8 +61,21 @@ export default function SensorsPage() {
         description="All sensors registered in system"
       />
 
+      <div className="lg:w-2/3 w-full flex items-center justify-center">
+        <Filter
+          value={nameFilter}
+          setValue={(e: string) => setNameFilter(e)}
+          placeholder="Search for sensor name or device pid"
+          searchOptions={
+            <p className="text-sm text-gray-500">
+              {sensorListFiltered.length} items founded
+            </p>
+          }
+        />
+      </div>
+
       <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6 mx-auto">
-        {sensors.map((sensorDevice) =>
+        {sensorListFiltered.map((sensorDevice) =>
           sensorDevice.sensors.map((sensor) => {
             return (
               <SimpleInfoCard
