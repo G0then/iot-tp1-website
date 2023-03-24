@@ -47,7 +47,7 @@ export default function DevicesPage() {
         description="All devices registered in system"
       />
 
-      <div className="lg:w-2/3 md:w-3/5 w-full flex items-center justify-center">
+      <div className="lg:w-2/3 w-full flex items-center justify-center">
         <Filter
           value={nameFilter}
           setValue={(e: string) => setNameFilter(e)}
