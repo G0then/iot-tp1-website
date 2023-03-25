@@ -5,6 +5,7 @@ import { useQuery } from "@/utils/requests/getSwr";
 import { GridColDef } from "@mui/x-data-grid";
 import { DateTime } from "luxon";
 import React from "react";
+import AlertButton from "../Button/AlertButton";
 import { NoData } from "../Error/NoData";
 import { LoadingData } from "../Loading/LoadingData";
 import Table from "../Table/Table";
@@ -33,6 +34,7 @@ const columns: GridColDef[] = [
     headerName: "State",
     flex: 1,
     headerAlign: "left",
+    renderCell: AlertButton,
   },
   {
     field: "timestamp",

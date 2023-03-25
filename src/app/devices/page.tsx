@@ -6,8 +6,8 @@ import Filter from "@/components/Filter/Filter";
 import { LoadingData } from "@/components/Loading/LoadingData";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import { DeviceDto } from "@/types/device";
-import { useDebounceQuery, useQuery } from "@/utils/requests/getSwr";
-import { useMemo, useState } from "react";
+import { useDebounceQuery } from "@/utils/requests/getSwr";
+import { useState } from "react";
 
 export default function DevicesPage() {
   const [nameFilter, setNameFilter] = useState<string>("");

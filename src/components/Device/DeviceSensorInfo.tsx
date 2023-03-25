@@ -5,6 +5,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import Table from "../Table/Table";
 import { useRouter } from 'next/navigation';
 import { DeviceDto } from "@/types/device";
+import StatusButton from "../Button/StatusButton";
 const columns: GridColDef[] = [
   {
     field: "name",
@@ -48,6 +49,7 @@ const columns: GridColDef[] = [
     // resizable: true,
     headerAlign: "left",
     // align: 'center',
+    renderCell: StatusButton,
   },
 ];
 
