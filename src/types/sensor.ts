@@ -1,6 +1,6 @@
 export type SensorDto = {
     pid: string;
-    calibrate: number;
+    calibrate: string | number;
     config: string;
     description: string;
     name: string;

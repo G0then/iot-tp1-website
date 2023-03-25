@@ -19,18 +19,6 @@ export default function DevicesPage() {
     error: devicesError,
   } = useDebounceQuery<DeviceDto[]>(urlGetDevices);
 
-  //Filtra a lista de devices pelo valor introduzido na searchBox
-  const deviceListFiltered: DeviceDto[] | undefined = useMemo(
-    () =>
-      devices &&
-      devices.filter(
-        (x) =>
-          x.name.toLowerCase().includes(nameFilter.toLowerCase()) ||
-          x.pid.toLowerCase().includes(nameFilter.toLowerCase())
-      ),
-    [nameFilter, devices]
-  );
-
   if (devicesError) {
     return <NoData text="Error fetching data!" />;
   }
@@ -53,16 +41,16 @@ export default function DevicesPage() {
           placeholder="Search for device name or pid"
           searchOptions={
             <p className="text-sm text-gray-500">
-              {deviceListFiltered ? deviceListFiltered.length : "0"} items founded
+              {devices ? devices.length : "0"} items founded
             </p>
           }
         />
       </div>
 
-      {!deviceListFiltered || deviceListFiltered.length === 0 ? 
-      <p className="my-4 text-lg font-semibold">No devices!</p>
+      {!devices || devices.length === 0 ? 
+      <p className="my-4 text-lg font-semibold text-center w-full">No devices!</p>
       : <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6 mx-auto">
-        {deviceListFiltered.map((device) => (
+        {devices.map((device) => (
           <SimpleInfoCard
             key={device._id.$oid}
             title={device.pid}
