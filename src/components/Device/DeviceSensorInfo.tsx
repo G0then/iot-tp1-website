@@ -1,11 +1,13 @@
-'use client';
+"use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import Table from "../Table/Table";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { DeviceDto } from "@/types/device";
 import StatusButton from "../Button/StatusButton";
+import TableHeader from "../Table/TableHeader";
+import CustomModal from "../Modal/CustomModal";
 const columns: GridColDef[] = [
   {
     field: "name",
@@ -64,8 +66,36 @@ export default function DeviceSensorInfo({
 }: DeviceSensorInfoProps) {
   const { sensors } = deviceInfo;
   const { push } = useRouter();
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleAddButton = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <Table rows={sensors} columns={columns} getRowId={(row) => row.pid} onRowClick={(rowData) => push(`/devices/${device_pid}/sensors/${rowData.row.pid}`)}/>
+    <div className="flex flex-col space-y-4 w-full">
+      <TableHeader
+        title="Device Sensors"
+        description="Check info about all sensors related to this device"
+        textAddButon="+ Add New Sensor"
+        onAddButtonClick={handleAddButton}
+        disableUpdateButton
+      />
+      <Table
+        rows={sensors}
+        columns={columns}
+        getRowId={(row) => row.pid}
+        onRowClick={(rowData) =>
+          push(`/devices/${device_pid}/sensors/${rowData.row.pid}`)
+        }
+      />
+      <CustomModal title="Add New Device" description="Please fill all form correctly" open={open} handleClose={handleClose}>
+        Teste
+      </CustomModal>
+    </div>
   );
 }
