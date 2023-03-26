@@ -1,20 +1,20 @@
 "use client"
 
+import { SensorDto } from '@/types/sensor';
 import { FormAddSensorError } from '@/utils/validateForms/validateAddSensor';
 import React from 'react'
 import CustomModalButtons from '../Modal/Buttons/CustomModalButtons';
 import CustomInput from './CustomInput/CustomInput'
 
 type AddSensorFormProps = {
-  formFields: any;
+  formFields: SensorDto;
   errorForm: FormAddSensorError | undefined;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleClose: () => void;
-  disableButton?: boolean;
 }
 
-export default function AddSensorForm({ formFields, errorForm, handleSubmit, handleChange, handleClose, disableButton }: AddSensorFormProps) {
+export default function AddSensorForm({ formFields, errorForm, handleSubmit, handleChange, handleClose }: AddSensorFormProps) {
   const { pid, name, description, status, calibrate, config, unit, unit_name } = formFields;
 
   return (

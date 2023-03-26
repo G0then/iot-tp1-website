@@ -126,7 +126,7 @@ export default function DeviceSensorInfo({
       const errorObj = validateFormAddSensor(formFields);
 
       if (errorObj) {
-        setErrorForm(errorObj); //Define que existem erros na criação do alarme
+        setErrorForm(errorObj); //Define que existem erros no formulario
         showToastMessage("Form contains errors!", "warning"); //Notificação de erro no formulário
       } else {
         await resquestAddSensor(
@@ -136,12 +136,12 @@ export default function DeviceSensorInfo({
         setErrorForm(undefined); //Define que não existem erros
         mutateDeviceInfo(); //Atualiza dados do device
         mutateDeviceCountDocuments(); //Atualiza dados do device
-        handleClose(); //Faz reset ao form quando um user é criado
+        handleClose(); //Fecha o modal
         showToastMessage("Sensor added!");
       }
     } catch (error) {
       console.log(error);
-      showToastMessage("Error adding sensor!", "error"); //Mostra notificação do erro ao fazer ack do alarme
+      showToastMessage("Error adding sensor!", "error"); //Mostra notificação do erro
     }
   };
 
@@ -163,7 +163,7 @@ export default function DeviceSensorInfo({
         }
       />
       <CustomModal
-        title="Add New Device"
+        title="Add New Sensor"
         description="Please fill all form correctly"
         open={open}
         handleClose={handleClose}
@@ -174,7 +174,6 @@ export default function DeviceSensorInfo({
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           handleClose={handleClose}
-          disableButton={isLoadingAddSensor || errorForm !== undefined}
         />
       </CustomModal>
     </div>

@@ -5,7 +5,7 @@ import React from 'react'
 type CustomInputProps = {
     title: string;
     name: string;
-    value: string | number;
+    value: any;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
     aditionalClass?: string;
