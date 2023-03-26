@@ -45,7 +45,7 @@ export const validateFormAddSensor = (formField: SensorDto) => {
 
   //Verificação da unidade de medida
   if (!formField.unit) {
-    formAddSensorErrorObj.Unit = "Select a measurement unit";
+    formAddSensorErrorObj.Unit = "Insert a measurement unit";
   }
 
   //Verificação do nome da unidade de medida

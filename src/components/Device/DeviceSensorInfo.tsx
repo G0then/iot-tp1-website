@@ -12,7 +12,10 @@ import AddSensorForm from "../Form/AddSensorForm";
 import { SensorDto } from "@/types/sensor";
 import { useRequest } from "@/utils/requests/useRequest";
 import { showToastMessage } from "../Notification/Notification";
-import { validateFormAddSensor } from "@/utils/validateForms/validateAddSensor";
+import {
+  validateFormAddSensor,
+  FormAddSensorError,
+} from "@/utils/validateForms/validateAddSensor";
 
 const columns: GridColDef[] = [
   {
@@ -84,11 +87,16 @@ export default function DeviceSensorInfo({
   const { sensors } = deviceInfo;
   const { push } = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  const [errorForm, setErrorForm] = useState<FormAddSensorError | undefined>(
+    undefined
+  );
   const {
     request: resquestAddSensor,
     isLoadingRequest: isLoadingAddSensor,
     errorRequest: errorAddSensor,
-  } = useRequest<SensorDto, SensorDto>();
+  } = useRequest<SensorDto, SensorDto>({
+    method: "PUT",
+  });
   const [formFields, setFormFields] = useState(defaultFormFields);
 
   const handleAddButton = () => {
@@ -114,13 +122,14 @@ export default function DeviceSensorInfo({
       const errorObj = validateFormAddSensor(formFields);
 
       if (errorObj) {
-        // setErrorForm(errorObj); //Define que existem erros na criação do alarme
+        setErrorForm(errorObj); //Define que existem erros na criação do alarme
         showToastMessage("Form contains errors!", "warning"); //Notificação de erro no formulário
       } else {
         await resquestAddSensor(
           `devices/${device_pid}/sensors/register`,
           formFields
         );
+        setErrorForm(undefined); //Define que não existem erros
         handleClose(); //Faz reset ao form quando um user é criado
         showToastMessage("Sensor added!");
       }
@@ -155,10 +164,11 @@ export default function DeviceSensorInfo({
       >
         <AddSensorForm
           formFields={formFields}
+          errorForm={errorForm}
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           handleClose={handleClose}
-          isLoadingRequest={isLoadingAddSensor}
+          disableButton={isLoadingAddSensor || errorForm !== undefined}
         />
       </CustomModal>
     </div>
