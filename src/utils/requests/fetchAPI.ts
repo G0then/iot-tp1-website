@@ -1,13 +1,10 @@
-import { ErrorDto } from "@/types/error";
-
 const api = "http://localhost:8080"; //Url da API do servidor
 
 //Função que faz o pedido à API
 // Nota: o parâmetro insideData é apenas utilizado quando a resposta ao pedido vem dentro de um objeto data (usado no react admin)
 export const fetchAPI = async <T>(
     url: string,
-    { headers: optionalHeaders = undefined, ...options }: any,
-    insideData?: boolean,
+    { headers: optionalHeaders = undefined, ...options }: any
   ) => {
     const headers = { ...optionalHeaders };
   

@@ -8,6 +8,12 @@ import { DeviceDto } from "@/types/device";
 import StatusButton from "../Button/StatusButton";
 import TableHeader from "../Table/TableHeader";
 import CustomModal from "../Modal/CustomModal";
+import AddSensorForm from "../Form/AddSensorForm";
+import { SensorDto } from "@/types/sensor";
+import { useRequest } from "@/utils/requests/useRequest";
+import { showToastMessage } from "../Notification/Notification";
+import { validateFormAddSensor } from "@/utils/validateForms/validateAddSensor";
+
 const columns: GridColDef[] = [
   {
     field: "name",
@@ -55,6 +61,17 @@ const columns: GridColDef[] = [
   },
 ];
 
+const defaultFormFields: SensorDto = {
+  pid: "",
+  status: "",
+  calibrate: "",
+  config: "",
+  unit: "",
+  description: "",
+  name: "",
+  unit_name: "",
+};
+
 type DeviceSensorInfoProps = {
   deviceInfo: DeviceDto;
   device_pid: string;
@@ -67,6 +84,12 @@ export default function DeviceSensorInfo({
   const { sensors } = deviceInfo;
   const { push } = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  const {
+    request: resquestAddSensor,
+    isLoadingRequest: isLoadingAddSensor,
+    errorRequest: errorAddSensor,
+  } = useRequest<SensorDto, SensorDto>();
+  const [formFields, setFormFields] = useState(defaultFormFields);
 
   const handleAddButton = () => {
     setOpen(true);
@@ -74,6 +97,37 @@ export default function DeviceSensorInfo({
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    event.preventDefault();
+    setFormFields({ ...formFields, [name]: value });
+  };
+
+  console.log(formFields);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      //Verifica se existe algum erro no formulario
+      const errorObj = validateFormAddSensor(formFields);
+
+      if (errorObj) {
+        // setErrorForm(errorObj); //Define que existem erros na criação do alarme
+        showToastMessage("Form contains errors!", "warning"); //Notificação de erro no formulário
+      } else {
+        await resquestAddSensor(
+          `devices/${device_pid}/sensors/register`,
+          formFields
+        );
+        handleClose(); //Faz reset ao form quando um user é criado
+        showToastMessage("Sensor added!");
+      }
+    } catch (error) {
+      console.log(error);
+      showToastMessage("Error adding sensor!", "error"); //Mostra notificação do erro ao fazer ack do alarme
+    }
   };
 
   return (
@@ -93,8 +147,19 @@ export default function DeviceSensorInfo({
           push(`/devices/${device_pid}/sensors/${rowData.row.pid}`)
         }
       />
-      <CustomModal title="Add New Device" description="Please fill all form correctly" open={open} handleClose={handleClose}>
-        Teste
+      <CustomModal
+        title="Add New Device"
+        description="Please fill all form correctly"
+        open={open}
+        handleClose={handleClose}
+      >
+        <AddSensorForm
+          formFields={formFields}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          handleClose={handleClose}
+          isLoadingRequest={isLoadingAddSensor}
+        />
       </CustomModal>
     </div>
   );

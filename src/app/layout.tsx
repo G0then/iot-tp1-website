@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar/Navbar";
+import { ToastNotification } from "@/components/Notification/Notification";
 import "./globals.css";
 import Providers from "./providers";
 
@@ -21,9 +22,10 @@ export default function RootLayout({
       </head>
       <body>
         {/* <Providers> */}
-          <Navbar />
-          {children}
+        <Navbar />
+        {children}
         {/* </Providers> */}
+        <ToastNotification />
       </body>
     </html>
   );

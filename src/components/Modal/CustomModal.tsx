@@ -1,7 +1,6 @@
 import React from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 
 const style = {
   position: "absolute" as "absolute",
@@ -11,7 +10,8 @@ const style = {
   minWidth: 300,
   minHeight: 300,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "2px solid #f0f0f0",
+  borderRadius: "1rem",
   boxShadow: 24,
   p: 4,
   display: "flex",
@@ -42,7 +42,7 @@ export default function CustomModal({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <div className="flex flex-col space-x-1">
+        <div className="flex flex-col space-x-1 justify-center items-center">
           <h2 className="text-2xl font-bold">{title}</h2>
           {description && <p className="text-lg">{description}</p>}
         </div>
