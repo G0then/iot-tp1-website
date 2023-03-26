@@ -17,6 +17,7 @@ export default function DevicePidPage({params}: any) {
     data: deviceInfo,
     isLoading: deviceInfoLoading,
     error: deviceInfoError,
+    mutate: mutateDeviceInfo,
   } = useQuery<DeviceDto>(urlGetDeviceInfo);
 
   const urlGetDeviceCountDocuments = `devices/${device_pid}/count_documents`;
@@ -24,6 +25,7 @@ export default function DevicePidPage({params}: any) {
     data: deviceCountDocuments,
     isLoading: deviceCountDocumentsLoading,
     error: deviceCountDocumentsError,
+    mutate: mutateDeviceCountDocuments,
   } = useQuery<CountDocumentsDto>(urlGetDeviceCountDocuments);
 
   //Ocorreu um erro
@@ -46,7 +48,7 @@ export default function DevicePidPage({params}: any) {
       />
       
       <DeviceTopInfoGrid deviceInfo={deviceInfo} deviceCountDocuments={deviceCountDocuments}/>
-      <DeviceMainInfo device_pid={device_pid} deviceInfo={deviceInfo}/>
+      <DeviceMainInfo device_pid={device_pid} deviceInfo={deviceInfo} mutateDeviceInfo={mutateDeviceInfo} mutateDeviceCountDocuments={mutateDeviceCountDocuments}/>
     </div>
   );
 }

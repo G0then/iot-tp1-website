@@ -1,7 +1,9 @@
 "use client";
 
 import { DeviceDto } from "@/types/device";
+import { CountDocumentsDto } from "@/types/documents";
 import React, { useState } from "react";
+import { KeyedMutator } from "swr";
 import TabItem from "../Tabs/TabItem";
 import DeviceAlertsInfo from "./DeviceAlertsInfo";
 import DeviceLocationInfo from "./DeviceLocationInfo";
@@ -23,11 +25,15 @@ const sectionArray = [
 type DeviceMainInfoProps = {
   deviceInfo: DeviceDto;
   device_pid: string;
+  mutateDeviceInfo: KeyedMutator<DeviceDto>;
+  mutateDeviceCountDocuments: KeyedMutator<CountDocumentsDto>;
 };
 
 export default function DeviceMainInfo({
   deviceInfo,
   device_pid,
+  mutateDeviceInfo,
+  mutateDeviceCountDocuments,
 }: DeviceMainInfoProps) {
   const [selectedSection, setSelectedSection] = useState(sectionArray[0]);
 
@@ -47,7 +53,7 @@ export default function DeviceMainInfo({
       <div className="flex max-h-[32rem] flex-col justify-center overflow-auto bg-white rounded-lg sm:shadow-md transition-shadow duration-200">
         <div className="flex h-auto flex-col justify-center overflow-auto m-5">
           {selectedSection === "Sensors" ? (
-            <DeviceSensorInfo deviceInfo={deviceInfo} device_pid={device_pid}/>
+            <DeviceSensorInfo deviceInfo={deviceInfo} device_pid={device_pid} mutateDeviceInfo={mutateDeviceInfo} mutateDeviceCountDocuments={mutateDeviceCountDocuments}/>
           ) : selectedSection === "Readings" ? (
             <DeviceReadingsInfo device_pid={device_pid} />
           ) : selectedSection === "Alerts" ? (

@@ -16,6 +16,8 @@ import {
   validateFormAddSensor,
   FormAddSensorError,
 } from "@/utils/validateForms/validateAddSensor";
+import { KeyedMutator } from "swr";
+import { CountDocumentsDto } from "@/types/documents";
 
 const columns: GridColDef[] = [
   {
@@ -78,11 +80,15 @@ const defaultFormFields: SensorDto = {
 type DeviceSensorInfoProps = {
   deviceInfo: DeviceDto;
   device_pid: string;
+  mutateDeviceInfo: KeyedMutator<DeviceDto>;
+  mutateDeviceCountDocuments: KeyedMutator<CountDocumentsDto>;
 };
 
 export default function DeviceSensorInfo({
   deviceInfo,
   device_pid,
+  mutateDeviceInfo,
+  mutateDeviceCountDocuments,
 }: DeviceSensorInfoProps) {
   const { sensors } = deviceInfo;
   const { push } = useRouter();
@@ -113,8 +119,6 @@ export default function DeviceSensorInfo({
     setFormFields({ ...formFields, [name]: value });
   };
 
-  console.log(formFields);
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -130,6 +134,8 @@ export default function DeviceSensorInfo({
           formFields
         );
         setErrorForm(undefined); //Define que não existem erros
+        mutateDeviceInfo(); //Atualiza dados do device
+        mutateDeviceCountDocuments(); //Atualiza dados do device
         handleClose(); //Faz reset ao form quando um user é criado
         showToastMessage("Sensor added!");
       }
