@@ -11,7 +11,7 @@ export default function DeviceLocationInfo({ deviceInfo }: DeviceAlertsInfoProps
   return (
     <div className="min-h-full w-full flex flex-col space-y-4">
       <p className="text-lg font-md"><span className="font-medium">Location Name:</span> {location.name}</p>
-      {location.latitude && location.longitude && <GoogleMapEmbed
+      {location.latitude !== undefined && location.longitude !== undefined && <GoogleMapEmbed
         latitude={location.latitude}
         longitude={location.longitude}
         customHeight="350px"

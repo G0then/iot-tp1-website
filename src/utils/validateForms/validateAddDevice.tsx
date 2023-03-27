@@ -1,5 +1,4 @@
-import { DeviceDto } from "@/types/device";
-import { SensorDto } from "@/types/sensor";
+import { CreateDeviceDto } from "@/types/device";
 
 export type FormAddDeviceError = {
   Pid: string | undefined;
@@ -19,7 +18,7 @@ const getDefaultAddDeviceFormErrorState = () => {
 };
 
 //Função que valida o formulário do pedido
-export const validateFormAddDevice = (formField: DeviceDto) => {
+export const validateFormAddDevice = (formField: CreateDeviceDto) => {
   let formAddDeviceErrorObj: FormAddDeviceError =
     getDefaultAddDeviceFormErrorState();
 

@@ -18,6 +18,7 @@ import {
 } from "@/utils/validateForms/validateAddSensor";
 import { KeyedMutator } from "swr";
 import { CountDocumentsDto } from "@/types/documents";
+import { OnOffStatusTypeCombobox } from "@/utils/objects/combobox/status";
 
 const columns: GridColDef[] = [
   {
@@ -68,7 +69,7 @@ const columns: GridColDef[] = [
 
 const defaultFormFields: SensorDto = {
   pid: "",
-  status: "",
+  status: OnOffStatusTypeCombobox[0].name,
   calibrate: "",
   config: "",
   unit: "",
@@ -113,10 +114,12 @@ export default function DeviceSensorInfo({
     setOpen(false);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    event.preventDefault();
-    setFormFields({ ...formFields, [name]: value });
+  //Hook para alterar os dados do state. Mantém os dados passados e altera os novos enviados. O Partial permite receber nulls
+  const handleChange = (newState: Partial<SensorDto>) => {
+    setFormFields((currentState) => ({
+      ...currentState,
+      ...newState,
+    }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

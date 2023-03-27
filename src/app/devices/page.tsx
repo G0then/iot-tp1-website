@@ -1,13 +1,12 @@
 "use client";
 
-import Button from "@/components/Button/Button";
 import SimpleInfoCard from "@/components/Card/SimpleInfoCard";
 import { NoData } from "@/components/Error/NoData";
 import Filter from "@/components/Filter/Filter";
 import { LoadingData } from "@/components/Loading/LoadingData";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import TableHeader from "@/components/Table/TableHeader";
-import { DeviceDto } from "@/types/device";
+import { CreateDeviceDto, DeviceDto } from "@/types/device";
 import { useDebounceQuery } from "@/utils/requests/getSwr";
 import { useRequest } from "@/utils/requests/useRequest";
 import { FormAddDeviceError } from "@/utils/validateForms/validateAddDevice";
@@ -16,10 +15,11 @@ import { validateFormAddDevice } from "@/utils/validateForms/validateAddDevice";
 import { showToastMessage } from "@/components/Notification/Notification";
 import CustomModal from "@/components/Modal/CustomModal";
 import AddDeviceForm from "@/components/Form/AddDeviceForm";
+import { OnOffStatusTypeCombobox } from "@/utils/objects/combobox/status";
 
-const defaultFormFields: DeviceDto = {
+const defaultFormFields: CreateDeviceDto = {
   pid: "",
-  status: "",
+  status: OnOffStatusTypeCombobox[0].name,
   description: "",
   name: "",
   location: {
@@ -45,7 +45,7 @@ export default function DevicesPage() {
     request: resquestAddSensor,
     isLoadingRequest: isLoadingAddSensor,
     errorRequest: errorAddSensor,
-  } = useRequest<DeviceDto, DeviceDto>();
+  } = useRequest<CreateDeviceDto, CreateDeviceDto>();
   const [formFields, setFormFields] = useState(defaultFormFields);
 
   const handleAddButton = () => {
@@ -56,11 +56,12 @@ export default function DevicesPage() {
     setOpen(false);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    console.log(name)
-    event.preventDefault();
-    setFormFields({ ...formFields, [name]: value });
+   //Hook para alterar os dados do state. Mantém os dados passados e altera os novos enviados. O Partial permite receber nulls
+   const handleChange = (newState: Partial<CreateDeviceDto>) => {
+    setFormFields((currentState) => ({
+      ...currentState,
+      ...newState,
+    }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
