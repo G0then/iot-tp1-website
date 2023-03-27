@@ -50,7 +50,7 @@ export default function DevicePidPage({params}: any) {
       
       <DeviceTopInfoGrid deviceInfo={deviceInfo} deviceCountDocuments={deviceCountDocuments}/>
       <DeviceMainInfo device_pid={device_pid} deviceInfo={deviceInfo} mutateDeviceInfo={mutateDeviceInfo} mutateDeviceCountDocuments={mutateDeviceCountDocuments}/>
-      <DeviceBottomInfo device_pid={device_pid}/>
+      <DeviceBottomInfo deviceInfo={deviceInfo} mutateDeviceInfo={mutateDeviceInfo} mutateDeviceCountDocuments={mutateDeviceCountDocuments}/>
     </div>
   );
 }
