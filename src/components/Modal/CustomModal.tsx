@@ -42,9 +42,9 @@ export default function CustomModal({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <div className="flex flex-col space-x-1 justify-center items-center">
-          <h2 className="text-2xl font-bold">{title}</h2>
-          {description && <p className="text-lg">{description}</p>}
+        <div className="flex flex-col space-y-2 justify-center items-center">
+          <h2 className="text-2xl font-bold text-center">{title}</h2>
+          {description && <p className="text-lg text-center">{description}</p>}
         </div>
         {children}
       </Box>

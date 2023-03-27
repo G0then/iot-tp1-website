@@ -21,6 +21,7 @@ import { CountDocumentsDto } from "@/types/documents";
 import { OnOffStatusTypeCombobox } from "@/utils/objects/combobox/status";
 import DeleteButton from "../Button/DeleteButton";
 import ViewButton from "../Button/ViewButton";
+import RemoveForm from "../Form/RemoveForm";
 
 const defaultFormFields: SensorDto = {
   pid: "",
@@ -48,7 +49,8 @@ export default function DeviceSensorInfo({
 }: DeviceSensorInfoProps) {
   const { sensors } = deviceInfo;
   const { push } = useRouter();
-  const [open, setOpen] = useState<boolean>(false);
+  const [openAddSensorModal, setOpenAddSensorModal] = useState<boolean>(false);
+  const [openRemoveSensorModal, setOpenRemoveSensorModal] = useState<string>("");
   const [errorForm, setErrorForm] = useState<FormAddSensorError | undefined>(
     undefined
   );
@@ -70,14 +72,19 @@ export default function DeviceSensorInfo({
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
-  }
-
-  const handleAddButton = () => {
-    setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleAddButton = () => {
+    setOpenAddSensorModal(true);
+  };
+
+  const handleCloseAddSensorModal = () => {
+    setOpenAddSensorModal(false);
+    resetFormFields();
+  };
+
+  const handleCloseRemoveSensorModal = () => {
+    setOpenRemoveSensorModal("");
   };
 
   //Hook para alterar os dados do state. Mantém os dados passados e altera os novos enviados. O Partial permite receber nulls
@@ -86,6 +93,20 @@ export default function DeviceSensorInfo({
       ...currentState,
       ...newState,
     }));
+  };
+
+  const handleRemove = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // don't select this row after clicking
+    try {
+      await requestRemoveSensor(`/devices/${device_pid}/sensors/${openRemoveSensorModal}`);
+      mutateDeviceInfo(); //Atualiza dados do device
+      mutateDeviceCountDocuments(); //Atualiza dados do device
+      handleCloseRemoveSensorModal();
+      showToastMessage("Sensor removed with sucess"); //Notificação
+    } catch (error) {
+      console.log(error);
+      showToastMessage("Error remove sensor!", "error"); //Notificação
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -103,10 +124,9 @@ export default function DeviceSensorInfo({
           formFields
         );
         setErrorForm(undefined); //Define que não existem erros
-        resetFormFields(); //Reseta os campos do formulário
         mutateDeviceInfo(); //Atualiza dados do device
         mutateDeviceCountDocuments(); //Atualiza dados do device
-        handleClose(); //Fecha o modal
+        handleCloseAddSensorModal(); //Fecha o modal
         showToastMessage("Sensor added!");
       }
     } catch (error) {
@@ -189,24 +209,12 @@ export default function DeviceSensorInfo({
         // resizable: true,
         headerAlign: "left",
         // align: 'center',
-        renderCell:  (params) => {
-          const onClick = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            e.stopPropagation(); // don't select this row after clicking
-            try{
-              await requestRemoveSensor(`/devices/${device_pid}/sensors/${params.row.pid}`)
-              mutateDeviceInfo(); //Atualiza dados do device
-              mutateDeviceCountDocuments(); //Atualiza dados do device
-              showToastMessage("Sensor removed with sucess"); //Notificação
-            } catch (error) {
-              console.log(error)
-              showToastMessage("Error remove sensor!", "error"); //Notificação
-            }
-          };
-
-          return <DeleteButton onClick={onClick} />;
+        renderCell: (params) => {
+          return <DeleteButton onClick={() => setOpenRemoveSensorModal(params.row.pid)} />;
         },
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -227,20 +235,33 @@ export default function DeviceSensorInfo({
         //   push(`/devices/${device_pid}/sensors/${rowData.row.pid}`)
         // }
       />
-      <CustomModal
-        title="Add New Sensor"
-        description="Please fill all form correctly"
-        open={open}
-        handleClose={handleClose}
-      >
-        <AddSensorForm
-          formFields={formFields}
-          errorForm={errorForm}
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          handleClose={handleClose}
-        />
-      </CustomModal>
+        <CustomModal
+          title="Add New Sensor"
+          description="Please fill all form correctly"
+          open={openAddSensorModal}
+          handleClose={handleCloseAddSensorModal}
+        >
+          <AddSensorForm
+            formFields={formFields}
+            errorForm={errorForm}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            handleClose={handleCloseAddSensorModal}
+          />
+        </CustomModal>
+ 
+        <CustomModal
+          title="Remove Sensor"
+          description="Are you sure that you want to remove the sensor?"
+          open={openRemoveSensorModal ? true : false}
+          handleClose={handleCloseRemoveSensorModal}
+        >
+          <RemoveForm
+            handleSubmit={handleRemove}
+            handleClose={handleCloseRemoveSensorModal}
+          />
+        </CustomModal>
+      
     </div>
   );
 }

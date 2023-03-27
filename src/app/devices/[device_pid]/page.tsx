@@ -1,5 +1,6 @@
 "use client"
 
+import DeviceBottomInfo from "@/components/Device/DeviceBottomInfo";
 import DeviceMainInfo from "@/components/Device/DeviceMainInfo";
 import DeviceTopInfoGrid from "@/components/Device/TopInfoGrid";
 import { NoData } from "@/components/Error/NoData";
@@ -41,7 +42,7 @@ export default function DevicePidPage({params}: any) {
   const { name, description } = deviceInfo;
 
   return (
-    <div className="flex flex-col space-y-10 justify-center items-center">
+    <div className="flex flex-col space-y-5 md:space-y-10 justify-center items-center">
       <PageTitle
         title={name}
         description={description}
@@ -49,6 +50,7 @@ export default function DevicePidPage({params}: any) {
       
       <DeviceTopInfoGrid deviceInfo={deviceInfo} deviceCountDocuments={deviceCountDocuments}/>
       <DeviceMainInfo device_pid={device_pid} deviceInfo={deviceInfo} mutateDeviceInfo={mutateDeviceInfo} mutateDeviceCountDocuments={mutateDeviceCountDocuments}/>
+      <DeviceBottomInfo device_pid={device_pid}/>
     </div>
   );
 }
