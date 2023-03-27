@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import Table from "../Table/Table";
 import { useRouter } from "next/navigation";
@@ -19,53 +19,8 @@ import {
 import { KeyedMutator } from "swr";
 import { CountDocumentsDto } from "@/types/documents";
 import { OnOffStatusTypeCombobox } from "@/utils/objects/combobox/status";
-
-const columns: GridColDef[] = [
-  {
-    field: "name",
-    headerName: "Sensor Name",
-    // minWidth: 350,
-    flex: 1,
-    // filterable: false,
-    // resizable: true,
-    headerAlign: "left",
-    // align: 'center',
-  },
-  {
-    field: "description",
-    headerName: "Description",
-    // minWidth: 350,
-    flex: 1,
-    // filterable: false,
-    // resizable: true,
-    headerAlign: "left",
-    // align: 'center',
-  },
-  {
-    field: "unit_name",
-    headerName: "Unit",
-    // minWidth: 350,
-    flex: 1,
-    // filterable: false,
-    // resizable: true,
-    headerAlign: "left",
-    // align: 'center',
-    valueGetter: (params) => {
-      return `${params.row.unit_name} (${params.row.unit})`;
-    },
-  },
-  {
-    field: "status",
-    headerName: "State",
-    // minWidth: 350,
-    flex: 1,
-    // filterable: false,
-    // resizable: true,
-    headerAlign: "left",
-    // align: 'center',
-    renderCell: StatusButton,
-  },
-];
+import DeleteButton from "../Button/DeleteButton";
+import ViewButton from "../Button/ViewButton";
 
 const defaultFormFields: SensorDto = {
   pid: "",
@@ -104,7 +59,18 @@ export default function DeviceSensorInfo({
   } = useRequest<SensorDto, SensorDto>({
     method: "PUT",
   });
+  const {
+    request: requestRemoveSensor,
+    isLoadingRequest: isLoadingRemoveSensor,
+    errorRequest: errorRemoveSensor,
+  } = useRequest<undefined, SensorDto>({
+    method: "DELETE",
+  });
   const [formFields, setFormFields] = useState(defaultFormFields);
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  }
 
   const handleAddButton = () => {
     setOpen(true);
@@ -137,6 +103,7 @@ export default function DeviceSensorInfo({
           formFields
         );
         setErrorForm(undefined); //Define que não existem erros
+        resetFormFields(); //Reseta os campos do formulário
         mutateDeviceInfo(); //Atualiza dados do device
         mutateDeviceCountDocuments(); //Atualiza dados do device
         handleClose(); //Fecha o modal
@@ -147,6 +114,101 @@ export default function DeviceSensorInfo({
       showToastMessage("Error adding sensor!", "error"); //Mostra notificação do erro
     }
   };
+
+  const columns: GridColDef[] = useMemo(
+    () => [
+      {
+        field: "name",
+        headerName: "Sensor Name",
+        // minWidth: 350,
+        flex: 1,
+        // filterable: false,
+        // resizable: true,
+        headerAlign: "left",
+        // align: 'center',
+      },
+      {
+        field: "description",
+        headerName: "Description",
+        // minWidth: 350,
+        flex: 1,
+        // filterable: false,
+        // resizable: true,
+        headerAlign: "left",
+        // align: 'center',
+      },
+      {
+        field: "unit_name",
+        headerName: "Unit",
+        // minWidth: 350,
+        flex: 1,
+        // filterable: false,
+        // resizable: true,
+        headerAlign: "left",
+        // align: 'center',
+        valueGetter: (params) => {
+          return `${params.row.unit_name} (${params.row.unit})`;
+        },
+      },
+      {
+        field: "status",
+        headerName: "State",
+        // minWidth: 350,
+        flex: 1,
+        // filterable: false,
+        // resizable: true,
+        headerAlign: "left",
+        // align: 'center',
+        renderCell: StatusButton,
+      },
+      {
+        field: "view",
+        headerName: "View",
+        // minWidth: 350,
+        flex: 1,
+        // filterable: false,
+        // resizable: true,
+        headerAlign: "left",
+        // align: 'center',
+        renderCell: (params) => {
+          const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            e.stopPropagation(); // don't select this row after clicking
+
+            push(`/devices/${device_pid}/sensors/${params.row.pid}`);
+          };
+
+          return <ViewButton onClick={onClick} />;
+        },
+      },
+      {
+        field: "delete",
+        headerName: "Delete",
+        // minWidth: 350,
+        flex: 1,
+        // filterable: false,
+        // resizable: true,
+        headerAlign: "left",
+        // align: 'center',
+        renderCell:  (params) => {
+          const onClick = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            e.stopPropagation(); // don't select this row after clicking
+            try{
+              await requestRemoveSensor(`/devices/${device_pid}/sensors/${params.row.pid}`)
+              mutateDeviceInfo(); //Atualiza dados do device
+              mutateDeviceCountDocuments(); //Atualiza dados do device
+              showToastMessage("Sensor removed with sucess"); //Notificação
+            } catch (error) {
+              console.log(error)
+              showToastMessage("Error remove sensor!", "error"); //Notificação
+            }
+          };
+
+          return <DeleteButton onClick={onClick} />;
+        },
+      },
+    ],
+    []
+  );
 
   return (
     <div className="flex flex-col space-y-4 w-full">
@@ -161,9 +223,9 @@ export default function DeviceSensorInfo({
         rows={sensors}
         columns={columns}
         getRowId={(row) => row.pid}
-        onRowClick={(rowData) =>
-          push(`/devices/${device_pid}/sensors/${rowData.row.pid}`)
-        }
+        // onRowClick={(rowData) =>
+        //   push(`/devices/${device_pid}/sensors/${rowData.row.pid}`)
+        // }
       />
       <CustomModal
         title="Add New Sensor"
