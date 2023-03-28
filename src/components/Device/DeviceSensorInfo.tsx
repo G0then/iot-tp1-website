@@ -22,6 +22,7 @@ import { OnOffStatusTypeCombobox } from "@/utils/objects/combobox/status";
 import DeleteButton from "../Button/DeleteButton";
 import ViewButton from "../Button/ViewButton";
 import RemoveForm from "../Form/RemoveForm";
+import EditButton from "../Button/EditButton";
 
 const defaultFormFields: SensorDto = {
   pid: "",
@@ -51,6 +52,7 @@ export default function DeviceSensorInfo({
   const { push } = useRouter();
   const [openAddSensorModal, setOpenAddSensorModal] = useState<boolean>(false);
   const [openRemoveSensorModal, setOpenRemoveSensorModal] = useState<string>("");
+  const [openEditSensorModal, setOpenEditSensorModal] = useState<string>("");
   const [errorForm, setErrorForm] = useState<FormAddSensorError | undefined>(
     undefined
   );
@@ -80,6 +82,11 @@ export default function DeviceSensorInfo({
 
   const handleCloseAddSensorModal = () => {
     setOpenAddSensorModal(false);
+    resetFormFields();
+  };
+
+  const handleCloseEditSensorModal = () => {
+    setOpenEditSensorModal("");
     resetFormFields();
   };
 
@@ -132,6 +139,32 @@ export default function DeviceSensorInfo({
     } catch (error) {
       console.log(error);
       showToastMessage("Error adding sensor!", "error"); //Mostra notificação do erro
+    }
+  };
+
+  const handleEdit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      //Verifica se existe algum erro no formulario
+      const errorObj = validateFormAddSensor(formFields);
+
+      if (errorObj) {
+        setErrorForm(errorObj); //Define que existem erros no formulario
+        showToastMessage("Form contains errors!", "warning"); //Notificação de erro no formulário
+      } else {
+        await resquestAddSensor(
+          `devices/${device_pid}/sensors/${openEditSensorModal}`,
+          formFields
+        );
+        setErrorForm(undefined); //Define que não existem erros
+        mutateDeviceInfo(); //Atualiza dados do device
+        mutateDeviceCountDocuments(); //Atualiza dados do device
+        handleCloseEditSensorModal(); //Fecha o modal
+        showToastMessage("Sensor updated!");
+      }
+    } catch (error) {
+      console.log(error);
+      showToastMessage("Error updating sensor!", "error"); //Mostra notificação do erro
     }
   };
 
@@ -201,6 +234,24 @@ export default function DeviceSensorInfo({
         },
       },
       {
+        field: "edit",
+        headerName: "Edit",
+        // minWidth: 350,
+        flex: 1,
+        // filterable: false,
+        // resizable: true,
+        headerAlign: "left",
+        // align: 'center',
+        renderCell: (params) => {
+          const handleEditButton = () => {
+            setFormFields(params.row);
+            setOpenEditSensorModal(params.row.pid);
+          };
+
+          return <EditButton onClick={handleEditButton} />;
+        },
+      },
+      {
         field: "delete",
         headerName: "Delete",
         // minWidth: 350,
@@ -247,6 +298,21 @@ export default function DeviceSensorInfo({
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             handleClose={handleCloseAddSensorModal}
+          />
+        </CustomModal>
+
+        <CustomModal
+          title="Edit Sensor"
+          description="Please fill all form correctly"
+          open={openEditSensorModal ? true : false}
+          handleClose={handleCloseEditSensorModal}
+        >
+          <AddSensorForm
+            formFields={formFields}
+            errorForm={errorForm}
+            handleSubmit={handleEdit}
+            handleChange={handleChange}
+            handleClose={handleCloseEditSensorModal}
           />
         </CustomModal>
  
