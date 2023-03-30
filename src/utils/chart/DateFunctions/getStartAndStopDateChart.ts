@@ -1,4 +1,4 @@
-import { dateTabEnum } from "../../objects/comboboxData";
+import { dateTabEnum } from "@/utils/objects/combobox/date";
 import { DateTime } from "luxon";
 
 //Recebe a tab ativa e a data de inicio/fim e retorna a nova data de inicio e fim baseadas na tab escolhida.

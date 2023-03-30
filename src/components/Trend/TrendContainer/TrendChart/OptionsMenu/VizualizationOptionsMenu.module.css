@@ -1,0 +1,10 @@
+.mainOptionsContainer{
+    display: inline-flex;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.dateContainer{
+    width: 185px;
+    min-width: 185px;
+}
