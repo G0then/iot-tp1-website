@@ -1,0 +1,121 @@
+.numberInputContainter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.mainDataContainer{
+  display: flex;
+  flex: 1;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.textContainer p {
+  margin: 0;
+  padding: 0;
+}
+
+.textContainer .description {
+  font-size: 0.9em;
+  color: var(--main-grey-primary-color);
+}
+
+.inputContainer {
+  display: flex;
+  gap: 1em;
+}
+
+.numberInput {
+  width: 100px;
+  padding: 0.5em;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  border-bottom: 2px solid var(--input-border-bottom-gray-primary-color);
+  background-color: var(--main-white-primary-color);
+  color: var(--main-black-primary-color);
+  font-size: 0.8em;
+  outline: none;
+  margin: 0;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.numberInput:focus {
+  border-bottom: 2px solid var(--input-border-bottom-blue-primary-color);
+}
+
+.buttonInput {
+  background-color: var(--main-grey-secondary-color);
+  height: 40px;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5em;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; /* Impede o utilizador de selecionar o texto dentro do botão */
+}
+
+.buttonInput:hover {
+  background-color: var(--main-grey-tertiary-color);
+}
+
+/* Para tirar os botões de incrementar e decrementar nos inputs do tipo number no Chrome, Safari, Edge, Opera */
+.numberInputContainter input::-webkit-outer-spin-button,
+.numberInputContainter input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* Para tirar os botões de incrementar e decrementar nos inputs do tipo number no Firefox */
+.numberInputContainter input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.numberInputContainter input[type="number"]:hover,
+.numberInputContainter input[type="number"]:focus {
+  -moz-appearance: number-input;
+  appearance: number-input;
+}
+
+.removeButtonContainer{
+  height: 100%;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-red-primary-color);
+  cursor: pointer;
+  margin: .5em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.removeButtonContainer:hover{
+  color: var(--button-hover-red-primary-color);
+}
+
+.removeButtonIcon {
+  height: 20px;
+  width: 20px;
+}
+
+.removeButtonIcon:hover {
+  color: var(--button-hover-red-primary-color);
+}

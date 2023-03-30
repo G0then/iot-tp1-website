@@ -1,0 +1,48 @@
+.mainOptionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.checkboxContainers {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.MinMaxContainer{
+    display: flex;
+    gap: 1em;
+    grid-column: span 2;
+}
+
+.MinMaxDataContainer {
+    width: 500px;
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  grid-column-gap: 1em;
+  -moz-column-gap: 1em;
+  column-gap: 1em;
+  align-items: center;
+}
+
+.mainDataContainer {
+  display: flex;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.textContainer p {
+  margin: 0;
+  padding: 0;
+}
+
+.textContainer .description {
+  font-size: 0.9em;
+  color: var(--main-grey-primary-color);
+}

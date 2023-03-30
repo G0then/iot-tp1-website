@@ -1,0 +1,87 @@
+.graphContainer {
+  /* flex:1; */
+  height: 100%;
+  /* padding: 1em 1em 3em 1em; */
+  padding: 1em;
+  border: solid 1px var(--main-grey-secondary-color);
+  border-radius: .5em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  -webkit-tap-highlight-color: transparent; /* Retira a cor azul do tapping na versão mobile */
+}
+.noGraphContainer {
+  width: 100%;
+  height: 100%;
+  -webkit-tap-highlight-color: transparent; /* Retira a cor azul do tapping na versão mobile */
+}
+
+.graphContainerFullScreen {
+  width: 100vw;
+  height: calc(100vh - 60px);
+  position: fixed;
+  left: 0;
+  top: 60px;
+  background-color: var(--main-white-primary-color);
+  padding: 20px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.title{
+  text-align: center;
+}
+
+.chart {
+  width: 100%;
+  height: 450px;
+  /*width: 400px;*/
+  cursor: pointer;
+  overflow: hidden; /* Para o div atualizar o tamanho???? Por algum motivo isto funcionou*/
+}
+
+.adaptiveChart {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.chartFullScreen {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+  .chart {
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .chart {
+    height: 350px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .chart {
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .chart {
+    /* width: 300px; */
+    height: 250px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .chart {
+    width: 200px;
+    height: 90%;
+  }
+}

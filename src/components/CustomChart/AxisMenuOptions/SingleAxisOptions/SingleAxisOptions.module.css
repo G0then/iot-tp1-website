@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr 5fr;
+  grid-column-gap: 1em;
+  -moz-column-gap: 1em;
+  column-gap: 2.5em;
+  align-items: center;
+  margin: 0;
+}
+
+.MinMaxContainer {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  grid-column-gap: 1em;
+  -moz-column-gap: 1em;
+  column-gap: 1em;
+  align-items: center;
+}
+
+.line {
+  height: 1px;
+  background-color: var(--main-grey-primary-color);
+  width: 100%;
+  opacity: 50%;
+  margin: 0.5em 0;
+}

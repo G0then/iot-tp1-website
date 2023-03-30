@@ -1,0 +1,89 @@
+.modalContent {
+  background-color: transparent;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  margin: 1em;
+}
+
+.mainContainer {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+  width: 1000px;
+}
+
+.detailsDataContainer {
+  background-color: var(--main-white-primary-color);
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75em;
+}
+
+.detailsDataContainer p {
+  margin: 0em;
+  font-size: 1em;
+}
+
+.detailsDataContainer .description {
+  text-align: center;
+}
+
+.modalActions {
+  position: relative;
+  margin-bottom: 0.5em;
+  width: 100%;
+}
+
+.actionsContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.addBtn {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  border: none;
+  color: var(--main-white-primary-color);
+  background: var(--main-green-primary-color);
+  transition: all 0.25s ease;
+}
+
+.addBtn:hover {
+  box-shadow: 0 10px 20px -10px var(--button-hover-green-primary-color);
+  transform: translateY(-5px);
+  background: var(--button-hover-green-primary-color);
+}
+
+.cancelBtn {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  border: none;
+  color: var(--main-black-secondary-color);
+  background: var(--main-grey-secondary-color);
+  transition: all 0.25s ease;
+}
+
+.cancelBtn:hover {
+  box-shadow: none;
+  transform: none;
+  background: var(--main-grey-tertiary-color);
+}
+
+.description p {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 1em;
+}

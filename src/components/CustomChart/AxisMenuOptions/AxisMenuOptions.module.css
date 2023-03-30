@@ -1,0 +1,52 @@
+.conditionsContainer {
+  display: flex;
+  width: 100%;
+  background-color: var(--form-light-blue-primary-color);
+  border: 1px solid var(--form-border-light-blue-primary-color);
+  border-radius: 0.5em;
+  overflow: auto;
+}
+
+.dataContainer {
+  display: flex;
+  width: 100%;
+  min-width: 1000px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: start;
+  gap: 1em;
+  margin: 1em;
+}
+
+.dataContainer p {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+  white-space: nowrap; /* Coloca o texto apenas numa linha */
+}
+
+.mainOptionContainer {
+  width: 100%;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 10fr 5fr 1fr 5fr;
+  column-gap: 2.5em;
+}
+
+/*dataContainer Scrollbar Css*/
+.conditionsContainer::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.conditionsContainer::-webkit-scrollbar-track {
+  background-color: var(--main-grey-secondary-color);
+  border-radius: 50px;
+}
+
+.conditionsContainer::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.3);
+  border-radius: 50px;
+}

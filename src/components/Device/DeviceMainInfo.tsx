@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { KeyedMutator } from "swr";
 import TabItem from "../Tabs/TabItem";
 import DeviceAlertsInfo from "./DeviceAlertsInfo";
+import DeviceChartInfo from "./DeviceChartInfo";
 import DeviceLocationInfo from "./DeviceLocationInfo";
 import DeviceLogsInfo from "./DeviceLogsInfo";
 import DeviceReadingsInfo from "./DeviceReadingsInfo";
@@ -60,6 +61,8 @@ export default function DeviceMainInfo({
             <DeviceAlertsInfo device_pid={device_pid} />
           ) : selectedSection === "Logs" ? (
             <DeviceLogsInfo device_pid={device_pid} />
+          )  : selectedSection === "Chart" ? (
+            <DeviceChartInfo device_pid={device_pid} />
           ) : selectedSection === "Users" ? (
             <DeviceUsersInfo device_pid={device_pid} />
           ) : selectedSection === "Location" ? (

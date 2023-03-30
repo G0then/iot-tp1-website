@@ -1,0 +1,40 @@
+.chartMenu{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1em;
+  }
+  
+  .chartOptionsContainer{
+    flex: 1;
+  }
+  
+  .chartButtonsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+  
+  .chartButtonsContainer .button {
+    background-color: var(--main-grey-secondary-color);
+    font-size: 1.1em;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5em;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; /* Impede o utilizador de selecionar o texto dentro do botão */
+  }
+  
+  .button:hover {
+    background-color: var(--main-grey-tertiary-color);
+  }
