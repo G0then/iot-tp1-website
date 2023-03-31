@@ -53,7 +53,16 @@ export default function DeviceChartInfo({ device_pid }: DeviceChartInfoProps) {
   const [trendState, setTrendState] = useState<trendState>(() =>
     getDefaultTrendState()
   );
-  const urlGetDeviceData = device_pid && `devices/${device_pid}/data/chart`;
+  let urlGetDeviceData = device_pid && `devices/${device_pid}/data/chart?sort=1`;
+  if(device_pid){
+    if(trendState.StartDateTime){
+      urlGetDeviceData += `&startDate=${DateTime.fromSQL(trendState.StartDateTime).toUTC().toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`
+    }
+    if(trendState.StopDateTime){
+      urlGetDeviceData += `&stopDate=${DateTime.fromSQL(trendState.StopDateTime).toUTC().toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`
+    }
+  }
+
   const {
     data: deviceData,
     isLoading: deviceDataLoading,

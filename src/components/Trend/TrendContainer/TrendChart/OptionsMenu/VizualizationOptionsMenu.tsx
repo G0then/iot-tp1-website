@@ -56,9 +56,7 @@ export const TrendChartVizualizationOptionsMenu = ({
     viewsList.push("day");
   }
 
-  console.log(viewsList)
-  console.log(today)
-  console.log(yesterday)
+  console.log(trendState)
 
   return (
     <div className={styles.mainOptionsContainer}>
@@ -70,7 +68,7 @@ export const TrendChartVizualizationOptionsMenu = ({
           handleChangeTrend({ ChartType: e });
         }}
       />
-      {/* <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <LocalizationProvider adapterLocale="pt-pt" dateAdapter={AdapterLuxon}>
           <div className={styles.dateContainer}>
             <DatePicker
@@ -82,7 +80,7 @@ export const TrendChartVizualizationOptionsMenu = ({
                 <TextField {...params} style={{ width: "100%" }} size="small" />
               )}
               maxDate={DateTime.fromMillis(yesterday.toMillis())}
-              value={StartDateTime ?? null}
+              value={StartDateTime ? DateTime.fromSQL(StartDateTime) : null}
               onChange={(startDateTime: DateTime | null) => {
                 const newDate = startDateTime ? 
                   activeTab === dateTabEnum.Day ? 
@@ -120,7 +118,7 @@ export const TrendChartVizualizationOptionsMenu = ({
               renderInput={(params: TextFieldProps) => (
                 <TextField {...params} style={{ width: "100%" }} size="small" />
               )}
-              value={StopDateTime ?? null}
+              value={StopDateTime ? DateTime.fromSQL(StopDateTime) : null}
               minDate={
                 StartDateTime
                   ? DateTime.fromMillis(new Date(StartDateTime).getTime())
@@ -153,7 +151,7 @@ export const TrendChartVizualizationOptionsMenu = ({
             />
           </div>
         </LocalizationProvider>
-      </ThemeProvider> */}
+      </ThemeProvider>
       <ChartDateFormatSelect
         label="Filtrar"
         comboboxData={dateComboboxData}
