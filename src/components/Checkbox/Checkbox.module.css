@@ -65,11 +65,11 @@
   
   /* Style the checkmark/indicator */
   .checkboxContainer .checkmark:after {
-    left: 8px;
-    top: 4px;
-    width: 4px;
-    height: 10px;
-    border: solid var(--main-white-primary-color);
+    left: 9px;
+    top: 5px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);

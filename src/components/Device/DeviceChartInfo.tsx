@@ -20,7 +20,6 @@ export type trendState = {
   activeTab: dateTabEnum;
   StartDateTime: string | undefined;
   StopDateTime: string | undefined;
-  numberConditions: number;
   ListConditions: conditionTrendState[];
 };
 
@@ -42,7 +41,6 @@ const getDefaultTrendState = () => {
     StopDateTime: DateTime.fromJSDate(yesterday)
       .endOf("day")
       .toFormat("yyyy-LL-dd TT"),
-    numberConditions: 0,
     ListConditions: [],
   };
 };
@@ -76,16 +74,13 @@ export default function DeviceChartInfo({ device_pid }: DeviceChartInfoProps) {
     }));
   };
 
-  console.log("deviceData", deviceData);
-  console.log("deviceDataFiltered", deviceDataFiltered);
+  console.log("trendState: ", trendState);
 
   //Objeto com os dados dos datasets a serem apresentados no gráfico
   const graphDatasets: CustomChartDataType[] = useMemo(
     () =>
       deviceData &&
-      !deviceDataFiltered.every(
-        (subArr: ReadingDto[]) => subArr.length === 0
-      ) //Verifica se existe pelo menos um dataset com valores
+      !deviceDataFiltered.every((subArr: ReadingDto[]) => subArr.length === 0) //Verifica se existe pelo menos um dataset com valores
         ? deviceDataFiltered
             .filter(
               (telemetryDeviceData: ReadingDto[]) =>
@@ -113,23 +108,25 @@ export default function DeviceChartInfo({ device_pid }: DeviceChartInfoProps) {
               };
             })
         : [],
-    [deviceData, trendState.activeTab]
+    [deviceData, deviceDataFiltered, trendState.activeTab]
   );
 
   return (
-    <CustomChart
-      Type={trendState.ChartType}
-      datasets={graphDatasets}
-      timeAxis={trendState.activeTab}
-      // customData={chartTypeOptionsData?.chartTypeData}
-      // customOptions={chartTypeOptionsData?.chartTypeOptions}
-      isLoadingData={deviceDataLoading}
-      errorData={deviceDataError}
-    >
-      <TrendChartVizualizationOptionsMenu
-        handleChangeTrend={handleChangeTrend}
-        trendState={trendState}
-      />
-    </CustomChart>
+    <div className="min-h-full w-full">
+      <CustomChart
+        Type={trendState.ChartType}
+        datasets={graphDatasets}
+        timeAxis={trendState.activeTab}
+        // customData={chartTypeOptionsData?.chartTypeData}
+        // customOptions={chartTypeOptionsData?.chartTypeOptions}
+        isLoadingData={deviceDataLoading}
+        errorData={deviceDataError}
+      >
+        <TrendChartVizualizationOptionsMenu
+          handleChangeTrend={handleChangeTrend}
+          trendState={trendState}
+        />
+      </CustomChart>
+    </div>
   );
 }

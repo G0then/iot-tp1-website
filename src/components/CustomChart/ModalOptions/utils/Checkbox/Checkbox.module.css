@@ -48,7 +48,7 @@
 
 .textContainer .description {
   font-size: 0.9em;
-  color: var(--main-grey-primary-color);
+  color: var(--color-greyLight-main);
 }
 
 .inputContainer {
@@ -63,8 +63,8 @@
   border-right: 0px;
   border-top: 0px;
   border-bottom: 2px solid var(--input-border-bottom-gray-primary-color);
-  background-color: var(--main-white-primary-color);
-  color: var(--main-black-primary-color);
+  background-color: white;
+  color: black;
   font-size: 0.8em;
   outline: none;
   margin: 0;
@@ -114,33 +114,4 @@
 .numberInputContainter input[type="number"]:focus {
   -moz-appearance: number-input;
   appearance: number-input;
-}
-
-.removeButtonContainer{
-  height: 100%;
-  width: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--main-red-primary-color);
-  cursor: pointer;
-  margin: .5em;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.removeButtonContainer:hover{
-  color: var(--button-hover-red-primary-color);
-}
-
-.removeButtonIcon {
-  height: 20px;
-  width: 20px;
-}
-
-.removeButtonIcon:hover {
-  color: var(--button-hover-red-primary-color);
 }

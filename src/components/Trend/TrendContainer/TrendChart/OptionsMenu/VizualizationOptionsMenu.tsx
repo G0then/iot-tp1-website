@@ -11,10 +11,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ChartTypeSelect } from "../../utils/Select/SelectChartType";
 import { chartTypeCombobox } from "../../../../../utils/objects/chartTypeData";
 import { ChartDateFormatSelect } from "../../utils/Select/SelectDateFormat";
-import { trendState } from "../../TrendContainer";
 import { getStartAndStopDateChart } from "../../../../../utils/chart/DateFunctions/getStartAndStopDateChart";
 import { DateTime } from "luxon";
 import { dateComboboxData, dateTabEnum } from "@/utils/objects/combobox/date";
+import { trendState } from "@/components/Device/DeviceChartInfo";
 
 type TrendChartVizualizationOptionsMenuProps = {
   handleChangeTrend: (newState: Partial<trendState>) => void;
@@ -43,8 +43,9 @@ export const TrendChartVizualizationOptionsMenu = ({
 }: TrendChartVizualizationOptionsMenuProps) => {
   const { ChartType, activeTab, StartDateTime, StopDateTime } = trendState;
 
-  const today = new Date(); //Data atual
-  const yesterday = DateTime.fromJSDate(new Date(today.setDate(today.getDate() - 1))).endOf('day') //Dia anterior ao atual
+  const today = DateTime.fromJSDate(new Date()); //Data atual
+  const yesterday = DateTime.fromJSDate(new Date(new Date().setDate(new Date().getDate() - 1))).endOf('day') //Dia anterior ao atual
+  // const yesterday = DateTime.fromJSDate(today).startOf('day') //Dia anterior ao atual
 
   //Cria a lista de views para o datePicker conforme a tab do formato de data ativo
   let viewsList: any[] = ["year"];   
@@ -54,6 +55,10 @@ export const TrendChartVizualizationOptionsMenu = ({
   if (activeTab === dateTabEnum.Day) {
     viewsList.push("day");
   }
+
+  console.log(viewsList)
+  console.log(today)
+  console.log(yesterday)
 
   return (
     <div className={styles.mainOptionsContainer}>
@@ -65,7 +70,7 @@ export const TrendChartVizualizationOptionsMenu = ({
           handleChangeTrend({ ChartType: e });
         }}
       />
-      <ThemeProvider theme={theme}>
+      {/* <ThemeProvider theme={theme}>
         <LocalizationProvider adapterLocale="pt-pt" dateAdapter={AdapterLuxon}>
           <div className={styles.dateContainer}>
             <DatePicker
@@ -148,7 +153,7 @@ export const TrendChartVizualizationOptionsMenu = ({
             />
           </div>
         </LocalizationProvider>
-      </ThemeProvider>
+      </ThemeProvider> */}
       <ChartDateFormatSelect
         label="Filtrar"
         comboboxData={dateComboboxData}

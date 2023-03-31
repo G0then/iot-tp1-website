@@ -74,5 +74,11 @@ body{
   --card-text-color: #efdbea;
   --card-text-hover: #d7a6cb;
   --c-ttn-primary-200: #def0ff;
+
+  --main-grey-primary-color: rgb(158, 158, 158);
+  --main-grey-secondary-color: rgb(225,225,225);
+  --main-grey-tertiary-color: rgb(204, 204, 204);
+  --input-border-bottom-gray-primary-color: rgb(221, 221, 221);
+  --main-blue-primary-color: rgb(63,81,181);
 }
 
