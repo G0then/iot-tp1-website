@@ -22,7 +22,7 @@
   position: fixed;
   left: 0;
   top: 60px;
-  background-color: var(--main-white-primary-color);
+  background-color: white;
   padding: 20px;
   z-index: 2;
   display: flex;
@@ -52,6 +52,7 @@
   width: 100%;
   height: 100%;
   cursor: pointer;
+  background-color: white;
 }
 
 @media screen and (max-width: 900px) {

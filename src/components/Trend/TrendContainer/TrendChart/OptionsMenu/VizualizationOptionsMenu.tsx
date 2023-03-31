@@ -56,8 +56,6 @@ export const TrendChartVizualizationOptionsMenu = ({
     viewsList.push("day");
   }
 
-  console.log(trendState)
-
   return (
     <div className={styles.mainOptionsContainer}>
       <ChartTypeSelect
@@ -76,9 +74,9 @@ export const TrendChartVizualizationOptionsMenu = ({
               views={viewsList}
               label="Data de Ínicio*"
               desktopModeMediaQuery="@media (pointer: fine)" //Conforme a resolução, mostra a versão desktop ou mobile
-              renderInput={(params: TextFieldProps) => (
-                <TextField {...params} style={{ width: "100%" }} size="small" />
-              )}
+              // renderInput={(params: TextFieldProps) => (
+              //   <TextField {...params} style={{ width: "100%" }} size="small" />
+              // )}
               maxDate={DateTime.fromMillis(yesterday.toMillis())}
               value={StartDateTime ? DateTime.fromSQL(StartDateTime) : null}
               onChange={(startDateTime: DateTime | null) => {
@@ -115,9 +113,9 @@ export const TrendChartVizualizationOptionsMenu = ({
               views={viewsList}
               label="Data de Término*"
               desktopModeMediaQuery="@media (pointer: fine)" //Conforme a resolução, mostra a versão desktop ou mobile
-              renderInput={(params: TextFieldProps) => (
-                <TextField {...params} style={{ width: "100%" }} size="small" />
-              )}
+              // renderInput={(params: TextFieldProps) => (
+              //   <TextField {...params} style={{ width: "100%" }} size="small" />
+              // )}
               value={StopDateTime ? DateTime.fromSQL(StopDateTime) : null}
               minDate={
                 StartDateTime
@@ -152,7 +150,7 @@ export const TrendChartVizualizationOptionsMenu = ({
           </div>
         </LocalizationProvider>
       </ThemeProvider>
-      <ChartDateFormatSelect
+      {/* <ChartDateFormatSelect
         label="Filtrar"
         comboboxData={dateComboboxData}
         activeItem={activeTab}
@@ -160,7 +158,7 @@ export const TrendChartVizualizationOptionsMenu = ({
           const newDates = getStartAndStopDateChart(tab, StartDateTime, StopDateTime);
           handleChangeTrend({ activeTab: tab, StartDateTime: newDates[0],  StopDateTime: newDates[1]});
         }}
-      />
+      /> */}
     </div>
   );
 };

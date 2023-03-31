@@ -14,6 +14,7 @@ import React, { useMemo, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { CustomChart } from "../CustomChart/CustomChart";
 import { TrendChartVizualizationOptionsMenu } from "../Trend/TrendContainer/TrendChart/OptionsMenu/VizualizationOptionsMenu";
+import { DeviceDto } from "@/types/device";
 
 export type trendState = {
   ChartType: any;
@@ -46,20 +47,28 @@ const getDefaultTrendState = () => {
 };
 
 type DeviceChartInfoProps = {
-  device_pid: string;
+  deviceInfo: DeviceDto;
 };
 
-export default function DeviceChartInfo({ device_pid }: DeviceChartInfoProps) {
+export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
+  const { pid: device_pid } = deviceInfo;
   const [trendState, setTrendState] = useState<trendState>(() =>
     getDefaultTrendState()
   );
-  let urlGetDeviceData = device_pid && `devices/${device_pid}/data/chart?sort=1`;
-  if(device_pid){
-    if(trendState.StartDateTime){
-      urlGetDeviceData += `&startDate=${DateTime.fromSQL(trendState.StartDateTime).toUTC().toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`
+  let urlGetDeviceData =
+    device_pid && `devices/${device_pid}/data/chart?sort=1`;
+  if (device_pid) {
+    if (trendState.StartDateTime) {
+      urlGetDeviceData += `&startDate=${DateTime.fromSQL(
+        trendState.StartDateTime
+      )
+        .toUTC()
+        .toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`;
     }
-    if(trendState.StopDateTime){
-      urlGetDeviceData += `&stopDate=${DateTime.fromSQL(trendState.StopDateTime).toUTC().toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`
+    if (trendState.StopDateTime) {
+      urlGetDeviceData += `&stopDate=${DateTime.fromSQL(trendState.StopDateTime)
+        .toUTC()
+        .toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`;
     }
   }
 
@@ -96,6 +105,10 @@ export default function DeviceChartInfo({ device_pid }: DeviceChartInfoProps) {
                 telemetryDeviceData.length >= 1
             ) //Filtra apenas os datasets com pelo menos um valor ou mais
             .map((filteredTelemetryDeviceData: ReadingDto[], index: number) => {
+              var sensor = deviceInfo.sensors.find((sensor) => {
+                return sensor.pid === filteredTelemetryDeviceData[0].sensor_pid;
+              });
+              console.log(sensor);
               return {
                 datasetData: filteredTelemetryDeviceData
                   ? filteredTelemetryDeviceData.map((data: ReadingDto) => {
@@ -109,15 +122,15 @@ export default function DeviceChartInfo({ device_pid }: DeviceChartInfoProps) {
                     : trendState.activeTab === dateTabEnum.Month
                     ? "Dia"
                     : "Mês",
-                yLabel: "",
+                yLabel: sensor ? sensor.unit_name : "",
                 label: filteredTelemetryDeviceData[0].sensor_pid,
-                unitLabel: "",
+                unitLabel: sensor ? sensor.unit : "",
                 backgroundColor: defaultChartBackgroundColor[index],
                 borderColor: defaultChartBorderColor[index],
               };
             })
         : [],
-    [deviceData, deviceDataFiltered, trendState.activeTab]
+    [deviceData, deviceDataFiltered, deviceInfo.sensors, trendState.activeTab]
   );
 
   return (

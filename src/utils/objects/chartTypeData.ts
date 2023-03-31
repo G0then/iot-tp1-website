@@ -8,7 +8,6 @@ import {
   AiOutlineRadarChart,
 } from "react-icons/ai";
 import { RiDonutChartFill } from "react-icons/ri";
-import { CustomChartDataType } from "../../types/chart.dto";
 import { barChartOptions } from "../chart/objects/barChartOptions";
 import { bubbleChartOptions } from "../chart/objects/bubbleChartOptions";
 import { doughnutChartOptions } from "../chart/objects/doughnutChartOptions";
@@ -16,6 +15,7 @@ import { lineChartOptions } from "../chart/objects/lineChartOptions";
 import { pieChartOptions } from "../chart/objects/pieChartOptions";
 import { polarAreaChartOptions } from "../chart/objects/polarAreaChartOptions";
 import { radarChartOptions } from "../chart/objects/radarChartOptions";
+import { CustomChartDataType } from "@/types/chart";
 
 export type chartTypeDto = {
   ChartType: any;

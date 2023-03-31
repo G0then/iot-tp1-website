@@ -26,7 +26,8 @@ export default function SimpleInfoCard({
 
   if (version === 2) {
     return (
-      <Component {...(href && { href })}>
+      // <Component {...(href && { href })}>
+      <Component href={href ?? ""}>
         <div
           className={classNames(
             "flex flex-col bg-white p-5 w-full max-w-full rounded-lg space-y-3 sm:shadow-md transition-shadow duration-200 group",
@@ -52,7 +53,8 @@ export default function SimpleInfoCard({
   }
 
   return (
-    <Component {...(href && { href })}>
+    // <Component {...(href && { href })}>
+    <Component href={href ?? ""}>
       <div
         className={classNames(
           "bg-white p-5 w-full h-32 rounded-lg space-y-3 sm:shadow-md transition-shadow duration-200 group",

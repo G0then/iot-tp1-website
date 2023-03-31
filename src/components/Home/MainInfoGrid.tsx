@@ -78,7 +78,7 @@ export default function HomeMainInfoGrid() {
               <SimpleCardList
                 key={reading._id.$oid}
                 title={reading.sensor_pid}
-                text={reading.value.toFixed(2)}
+                text={(+reading.value).toFixed(2)}
                 date={DateTime.fromISO(reading.timestamp.$date).toFormat("FF")}
               />
             ))}
@@ -89,7 +89,7 @@ export default function HomeMainInfoGrid() {
             <SimpleCardList
               key={alert._id.$oid}
               title={alert.sensor_pid}
-              text={alert.description}
+              text={alert.message}
               date={DateTime.fromISO(alert.timestamp.$date).toFormat("FF")}
               version={2}
             />

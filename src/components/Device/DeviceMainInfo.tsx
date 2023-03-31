@@ -62,7 +62,7 @@ export default function DeviceMainInfo({
           ) : selectedSection === "Logs" ? (
             <DeviceLogsInfo device_pid={device_pid} />
           )  : selectedSection === "Chart" ? (
-            <DeviceChartInfo device_pid={device_pid} />
+            <DeviceChartInfo deviceInfo={deviceInfo} />
           ) : selectedSection === "Users" ? (
             <DeviceUsersInfo device_pid={device_pid} />
           ) : selectedSection === "Location" ? (
