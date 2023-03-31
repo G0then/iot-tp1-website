@@ -252,17 +252,15 @@ export const CustomChart = React.memo((props: CustomChartProps) => {
                     ? "Sem Dados!"
                     : "Selecione uma ou mais telemetrias!"
                 }
-                adaptiveHeight
                 disableMargin
               />
             )
           ) : (
-            <LoadingData adaptiveHeight disableMargin />
+            <LoadingData disableMargin />
           )
         ) : (
           <NoData
             text="Erro ao obter os dados!"
-            adaptiveHeight
             disableMargin
           />
         )}

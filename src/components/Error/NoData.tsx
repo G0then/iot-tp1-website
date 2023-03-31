@@ -12,7 +12,7 @@ const defaultNoDataContainer: NoDataContainerProps = {
   fontSize: "1.2em",
   margin: "1em",
   disableMargin: false,
-  adaptiveHeight: false,
+  adaptiveHeight: true,
 };
 
 export const NoData = (props: NoDataContainerProps) => {
@@ -24,11 +24,12 @@ export const NoData = (props: NoDataContainerProps) => {
 
   return (
     <div
-      className="flex justify-center items-center font-bold"
+      className="flex justify-center items-center font-bold "
       style={{
         fontSize: fontSize,
         margin: !disableMargin && margin ? margin : "0",
         height: adaptiveHeight ? "100%" : "auto",
+        minHeight: adaptiveHeight ? "100%" : "auto",
       }}
     >
       <p className="text-center">{text}</p>

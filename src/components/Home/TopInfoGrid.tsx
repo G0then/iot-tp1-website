@@ -11,24 +11,11 @@ import { useQuery } from "@/utils/requests/getSwr";
 import { NoData } from "../Error/NoData";
 import { LoadingData } from "../Loading/LoadingData";
 
-export default function HomeTopInfoGrid() {
-  const urlGetSystemCount = "system/count_documents";
-  const {
-    data: systemCounts,
-    isLoading: systemCountsLoading,
-    error: systemCountsError,
-  } = useQuery<SystemNumDocumentsDto>(urlGetSystemCount);
+type HomeTopInfoGridProps = {
+  systemCounts: SystemNumDocumentsDto;
+};
 
-  //Ocorreu um erro
-  if (systemCountsError) {
-    return <NoData text="Error fetching data!!"/>;
-  }
-
-  //A carregar os dados
-  if (systemCountsLoading) {
-    return <LoadingData/>;
-  }
-
+export default function HomeTopInfoGrid({ systemCounts }: HomeTopInfoGridProps) {
   const { devices, sensors, readings, logs, alerts } = systemCounts;
   return (
     <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6 mx-auto">

@@ -26,22 +26,27 @@
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 }
 
+html {
+  height: 100%;
+}
+
 body{
   background-color: var(--color-white-bg);
-  padding: 3rem;
-  min-height: 100vh;
-  margin-top: 4rem;
+  padding: 6rem 3rem 3rem 3rem;
+  /* min-height: 100vh; */
+  height:100%;
+  /* padding-top: 4rem; */
 }
 
 @media only screen and (max-width: 768px) {
   body {
-    padding: 2rem;
+    padding: 6rem 2rem 2rem 2rem;
   }
 }
 
 @media only screen and (max-width: 640px) {
   body {
-    padding: 1rem;
+    padding: 6rem 1rem 1rem 1rem;
   }
 }
 

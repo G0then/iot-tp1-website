@@ -14,7 +14,7 @@ const defaultNoDataContainer: NoDataContainerProps = {
   height: "32px",
   margin: "1em",
   disableMargin: false,
-  adaptiveHeight: false,
+  adaptiveHeight: true,
 }
 
 export const LoadingData = (props: NoDataContainerProps) => {

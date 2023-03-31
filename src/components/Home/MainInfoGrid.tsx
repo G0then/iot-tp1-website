@@ -15,36 +15,17 @@ import { LogDto } from "@/types/log";
 import { AlertDto } from "@/types/alert";
 import { ReadingDto } from "@/types/reading";
 
-export default function HomeMainInfoGrid() {
-  const urlGetReadings = "readings?limit=5&sort=-1";
-  const {
-    data: readings,
-    isLoading: readingsLoading,
-    error: readingsError,
-  } = useQuery<ReadingDto[]>(urlGetReadings);
+type HomeMainInfoGridProps = {
+  logs: LogDto[];
+  readings: ReadingDto[];
+  alerts: AlertDto[];
+};
 
-  const urlGetAlerts = "alerts?limit=5&sort=-1";
-  const {
-    data: alerts,
-    isLoading: alertsLoading,
-    error: alertsError,
-  } = useQuery<AlertDto[]>(urlGetAlerts);
-
-  const urlGetLogs = "logs?limit=5&sort=-1";
-  const {
-    data: logs,
-    isLoading: logsLoading,
-    error: logsError,
-  } = useQuery<LogDto[]>(urlGetLogs);
-
-  if (readingsError || alertsError || logsError) {
-    return <NoData text="Error fetching data!!"/>;
-  }
-
-  if (readingsLoading || alertsLoading || logsLoading) {
-    return <LoadingData/>;
-  }
-
+export default function HomeMainInfoGrid({
+  logs,
+  readings,
+  alerts,
+}: HomeMainInfoGridProps) {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 w-full gap-6 md:gap-10">
       <div className="flex flex-col w-full col-span-1 xl:col-span-2 gap-6 md:gap-10">
