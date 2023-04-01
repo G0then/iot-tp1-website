@@ -6,6 +6,7 @@ export type NoDataContainerProps = {
   margin?: string;
   disableMargin?: boolean;
   isAbsolute?: boolean;
+  adaptiveHeight?: boolean;
 };
 
 //Construção do objeto default
@@ -15,13 +16,14 @@ const defaultNoDataContainer: NoDataContainerProps = {
   margin: "1em",
   disableMargin: false,
   isAbsolute: false,
+  adaptiveHeight: true,
 };
 
 export const NoData = (props: NoDataContainerProps) => {
   const resolvedProps = { ...defaultNoDataContainer, ...props };
 
   //Desconstrutor
-  const { text, fontSize, margin, disableMargin, isAbsolute } =
+  const { text, fontSize, margin, disableMargin, isAbsolute, adaptiveHeight } =
     resolvedProps;
 
   if(isAbsolute){
@@ -44,7 +46,9 @@ export const NoData = (props: NoDataContainerProps) => {
       className="flex justify-center items-center font-bold "
       style={{
         fontSize: fontSize,
-        margin: !disableMargin && margin ? margin : "0"
+        margin: !disableMargin && margin ? margin : "0",
+        height: adaptiveHeight ? "100%" : "auto",
+        minHeight: adaptiveHeight ? "100%" : "auto",
       }}
     >
       <p className="text-center">{text}</p>

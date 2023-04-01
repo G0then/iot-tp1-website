@@ -6,6 +6,7 @@ export type NoDataContainerProps = {
   margin?: string;
   disableMargin?: boolean;
   isAbsolute?: boolean;
+  adaptiveHeight?: boolean;
 };
 
 //Construção do objeto default
@@ -15,13 +16,14 @@ const defaultNoDataContainer: NoDataContainerProps = {
   margin: "1em",
   disableMargin: false,
   isAbsolute: false,
+  adaptiveHeight: true,
 };
 
 export const LoadingData = (props: NoDataContainerProps) => {
   const resolvedProps = { ...defaultNoDataContainer, ...props };
 
   //Desconstrutor
-  const { width, height, margin, disableMargin, isAbsolute } = resolvedProps;
+  const { width, height, margin, disableMargin, isAbsolute, adaptiveHeight } = resolvedProps;
 
   if (isAbsolute) {
     return (
@@ -42,6 +44,7 @@ export const LoadingData = (props: NoDataContainerProps) => {
       className="flex justify-center items-center font-bold"
       style={{
         margin: !disableMargin && margin ? margin : "0",
+        height: adaptiveHeight ? "100%" : "auto"
       }}
     >
       <Spinner width={width} height={height} />
