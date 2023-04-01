@@ -21,11 +21,11 @@ export default function LogsPage() {
   } = useQuery<LogDto[]>(urlGetLogs);
 
   if (logsError) {
-    return <NoData text="Error fetching data!" />;
+    return <NoData text="Error fetching data!" isAbsolute/>;
   }
 
   if (logsLoading) {
-    return <LoadingData />;
+    return <LoadingData isAbsolute/>;
   }
 
   return (

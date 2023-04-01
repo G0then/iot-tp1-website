@@ -87,11 +87,11 @@ export default function DevicesPage() {
   };
 
   if (devicesError) {
-    return <NoData text="Error fetching data!" />;
+    return <NoData text="Error fetching data!" isAbsolute/>;
   }
 
   if (devicesLoading) {
-    return <LoadingData />;
+    return <LoadingData isAbsolute/>;
   }
 
   return (

@@ -23,9 +23,7 @@ export default function RootLayout({
       <body>
         {/* <Providers> */}
         <Navbar />
-        {/* <div className="min-h-full h-full w-full"> */}
         {children}
-        {/* </div> */}
         {/* </Providers> */}
         <ToastNotification />
       </body>

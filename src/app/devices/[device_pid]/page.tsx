@@ -31,12 +31,12 @@ export default function DevicePidPage({params}: any) {
 
   //Ocorreu um erro
   if (deviceInfoError || deviceCountDocumentsError) {
-    return <NoData text="Error fetching data!!"/>;
+    return <NoData text="Error fetching data!!" isAbsolute/>;
   }
 
   //A carregar os dados
   if (deviceInfoLoading || deviceCountDocumentsLoading) {
-    return <LoadingData/>;
+    return <LoadingData isAbsolute/>;
   }
 
   const { name, description } = deviceInfo;

@@ -41,12 +41,12 @@ export default function Home() {
 
   //Ocorreu um erro
   if (readingsError || alertsError || logsError || systemCountsError) {
-    return <NoData text="Error fetching data!!"/>;
+    return <NoData text="Error fetching data!!" isAbsolute/>;
   }
 
   //A carregar os dados
   if (readingsLoading || alertsLoading || logsLoading || systemCountsLoading) {
-    return <LoadingData/>;
+    return <LoadingData isAbsolute/>;
   }
 
   return (

@@ -29,12 +29,12 @@ export default function SensorPidPage({ params }: any) {
 
   //Ocorreu um erro
   if (sensorInfoError || sensorCountDocumentsError) {
-    return <NoData text="Error fetching data!!"/>;
+    return <NoData text="Error fetching data!!" isAbsolute/>;
   }
 
   //A carregar os dados
   if (sensorInfoLoading || sensorCountDocumentsLoading) {
-    return <LoadingData/>;
+    return <LoadingData isAbsolute/>;
   }
 
   const { name, description } = sensorInfo;

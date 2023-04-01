@@ -31,11 +31,11 @@ export default function SensorsPage() {
   );
 
   if (sensorsError) {
-    return <NoData text="Error fetching data!!" />;
+    return <NoData text="Error fetching data!!" isAbsolute/>;
   }
 
   if (sensorsLoading) {
-    return <LoadingData />;
+    return <LoadingData isAbsolute/>;
   }
 
   return (

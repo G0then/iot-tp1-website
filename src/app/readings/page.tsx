@@ -19,11 +19,11 @@ export default function ReadingsPage() {
   } = useQuery<ReadingDto[]>(urlGetReadings);
 
   if (readingsError) {
-    return <NoData text="Error fetching data!!" />;
+    return <NoData text="Error fetching data!!" isAbsolute/>;
   }
 
   if (readingsLoading) {
-    return <LoadingData />;
+    return <LoadingData isAbsolute/>;
   }
 
   return (

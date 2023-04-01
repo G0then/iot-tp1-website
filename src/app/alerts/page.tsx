@@ -20,11 +20,11 @@ export default function AlertsPage() {
   } = useQuery<AlertDto[]>(urlGetAlerts);
 
   if (alertsError) {
-    return <NoData text="Error fetching data!!" />;
+    return <NoData text="Error fetching data!!" isAbsolute/>;
   }
 
   if (alertsLoading) {
-    return <LoadingData />;
+    return <LoadingData isAbsolute/>;
   }
 
   return (

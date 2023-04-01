@@ -20,11 +20,11 @@ export default function UsersPage() {
   } = useDebounceQuery<UserDto[]>(urlGetUsers);
 
   if (usersError) {
-    return <NoData text="Error fetching data!" />;
+    return <NoData text="Error fetching data!" isAbsolute/>;
   }
 
   if (usersLoading) {
-    return <LoadingData />;
+    return <LoadingData isAbsolute/>;
   }
 
   return (
