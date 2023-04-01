@@ -18,6 +18,7 @@ export const pieChartOptions = (
 
   const pieChartData = {
     ...chartTypeData,
+    labels: ['teste1','teste2'],
     datasets: datasets.map((dataset) => {
       return {
         label: dataset.label,
@@ -110,6 +111,8 @@ export const pieChartOptions = (
             }
 
             return datasets.map((dataset: any, index: number) => ({
+              datasetIndex: index,
+              fontColor: "#666",
               text: dataset.unitLabel
                 ? `${dataset.label} (${dataset.unitLabel})`
                 : dataset.label,

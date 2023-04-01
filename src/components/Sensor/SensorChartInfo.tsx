@@ -14,7 +14,6 @@ import React, { useMemo, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { CustomChart } from "../CustomChart/CustomChart";
 import { TrendChartVizualizationOptionsMenu } from "../Trend/TrendContainer/TrendChart/OptionsMenu/VizualizationOptionsMenu";
-import { DeviceDto } from "@/types/device";
 
 export type trendState = {
   ChartType: any;
@@ -45,43 +44,44 @@ const getDefaultTrendState = () => {
   };
 };
 
-type DeviceChartInfoProps = {
-  deviceInfo: DeviceDto;
+type SensorChartInfoProps = {
+  sensorInfo: SensorDto;
+  device_pid: string;
 };
 
-export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
-  const { pid: device_pid } = deviceInfo;
+export default function SensorChartInfo({
+  sensorInfo,
+  device_pid,
+}: SensorChartInfoProps) {
+  const { pid: sensor_pid } = sensorInfo;
   const [trendState, setTrendState] = useState<trendState>(() =>
     getDefaultTrendState()
   );
-  let urlGetDeviceData =
-    device_pid && `devices/${device_pid}/data/chart?sort=1`;
-  if (device_pid) {
+  let urlGetSensorData =
+    device_pid &&
+    sensor_pid &&
+    `devices/${device_pid}/sensors/${sensor_pid}/data/chart?sort=1`;
+  if (device_pid && sensor_pid) {
     if (trendState.StartDateTime) {
-      urlGetDeviceData += `&startDate=${DateTime.fromSQL(
+      urlGetSensorData += `&startDate=${DateTime.fromSQL(
         trendState.StartDateTime
       )
         .toUTC()
         .toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`;
     }
     if (trendState.StopDateTime) {
-      urlGetDeviceData += `&stopDate=${DateTime.fromSQL(trendState.StopDateTime)
+      urlGetSensorData += `&stopDate=${DateTime.fromSQL(trendState.StopDateTime)
         .toUTC()
         .toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`;
     }
   }
 
   const {
-    data: deviceData,
-    isLoading: deviceDataLoading,
-    error: deviceDataError,
+    data: sensorData,
+    isLoading: sensorDataLoading,
+    error: sensorDataError,
     mutate: mutateDeviceData,
-  } = useDebounceQuery<any>(urlGetDeviceData);
-
-  const deviceDataFiltered = useMemo(
-    () => deviceData && Object.values(deviceData.data),
-    [deviceData]
-  );
+  } = useDebounceQuery<any>(urlGetSensorData);
 
   //Hook para alterar os dados do state. Mantém os dados passados e altera os novos enviados. O Partial permite receber nulls
   const handleChangeTrend = (newState: Partial<trendState>) => {
@@ -94,39 +94,30 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
   //Objeto com os dados dos datasets a serem apresentados no gráfico
   const graphDatasets: CustomChartDataType[] = useMemo(
     () =>
-      deviceData &&
-      !deviceDataFiltered.every((subArr: ReadingDto[]) => subArr.length === 0) //Verifica se existe pelo menos um dataset com valores
-        ? deviceDataFiltered
-            .filter(
-              (telemetryDeviceData: ReadingDto[]) =>
-                telemetryDeviceData.length >= 1
-            ) //Filtra apenas os datasets com pelo menos um valor ou mais
-            .map((filteredTelemetryDeviceData: ReadingDto[], index: number) => {
-              var sensor = deviceInfo.sensors.find((sensor) => {
-                return sensor.pid === filteredTelemetryDeviceData[0].sensor_pid;
-              });
-              return {
-                datasetData: filteredTelemetryDeviceData
-                  ? filteredTelemetryDeviceData.map((data: ReadingDto) => {
-                      const time = new Date(data.timestamp.$date);
-                      return { y: data.value, x: time };
-                    })
-                  : [],
-                xLabel:
-                  trendState.activeTab === dateTabEnum.Day
-                    ? "Hora"
-                    : trendState.activeTab === dateTabEnum.Month
-                    ? "Dia"
-                    : "Mês",
-                yLabel: sensor ? sensor.unit_name : "",
-                label: filteredTelemetryDeviceData[0].sensor_pid,
-                unitLabel: sensor ? sensor.unit : "",
-                backgroundColor: defaultChartBackgroundColor[index],
-                borderColor: defaultChartBorderColor[index],
-              };
-            })
+      sensorData && !(sensorData.data[sensor_pid].length === 0) //Verifica se existe pelo menos um dataset com valores
+        ? [
+            {
+              datasetData: sensorData.data[sensor_pid]
+                ? sensorData.data[sensor_pid].map((data: ReadingDto) => {
+                    const time = new Date(data.timestamp.$date);
+                    return { y: data.value, x: time };
+                  })
+                : [],
+              xLabel:
+                trendState.activeTab === dateTabEnum.Day
+                  ? "Hora"
+                  : trendState.activeTab === dateTabEnum.Month
+                  ? "Dia"
+                  : "Mês",
+              yLabel: sensorInfo ? sensorInfo.unit_name : "",
+              label: sensorInfo.pid,
+              unitLabel: sensorInfo ? sensorInfo.unit : "",
+              backgroundColor: defaultChartBackgroundColor[0],
+              borderColor: defaultChartBorderColor[0],
+            },
+          ]
         : [],
-    [deviceData, deviceDataFiltered, deviceInfo.sensors, trendState.activeTab]
+    [sensorData, sensorInfo, sensor_pid, trendState.activeTab]
   );
 
   return (
@@ -137,8 +128,8 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
         timeAxis={trendState.activeTab}
         // customData={chartTypeOptionsData?.chartTypeData}
         // customOptions={chartTypeOptionsData?.chartTypeOptions}
-        isLoadingData={deviceDataLoading}
-        errorData={deviceDataError}
+        isLoadingData={sensorDataLoading}
+        errorData={sensorDataError}
       >
         <TrendChartVizualizationOptionsMenu
           handleChangeTrend={handleChangeTrend}

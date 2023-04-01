@@ -7,14 +7,9 @@ import SensorAlertsInfo from "./SensorAlertsInfo";
 import SensorDataStatisticsInfo from "./SensorDataStatisticsInfo";
 import SensorLogsInfo from "./SensorLogsInfo";
 import SensorReadingsInfo from "./SensorReadingsInfo";
+import SensorChartInfo from "./SensorChartInfo";
 
-const sectionArray = [
-  "Readings",
-  "Alerts",
-  "Logs",
-  "Chart",
-  "Data Statistics",
-];
+const sectionArray = ["Readings", "Alerts", "Logs", "Chart", "Data Statistics"];
 
 type SensorMainInfoProps = {
   sensorInfo: SensorDto;
@@ -50,8 +45,13 @@ export default function SensorMainInfo({
             <SensorAlertsInfo device_pid={device_pid} sensor_pid={sensor_pid} />
           ) : selectedSection === "Logs" ? (
             <SensorLogsInfo device_pid={device_pid} sensor_pid={sensor_pid} />
+          ) : selectedSection === "Chart" ? (
+            <SensorChartInfo device_pid={device_pid} sensorInfo={sensorInfo} />
           ) : selectedSection === "Data Statistics" ? (
-            <SensorDataStatisticsInfo device_pid={device_pid} sensor_pid={sensor_pid}/>
+            <SensorDataStatisticsInfo
+              device_pid={device_pid}
+              sensorInfo={sensorInfo}
+            />
           ) : (
             <div>Em Construção...</div>
           )}

@@ -117,6 +117,7 @@ export const polarAreaChartOptions = (
 
             return datasets.map((dataset: any, index: number) => ({
               text: dataset.unitLabel ? `${dataset.label} (${dataset.unitLabel})` : dataset.label,
+              fontColor: "#666",
               fillStyle: dataset.backgroundColor,
               strokeStyle: dataset.borderColor,
               hidden: datasetsVisibility[index], //Risca ou não a legenda conforme a visibilidade do dataset presente na lista criada anteriormente

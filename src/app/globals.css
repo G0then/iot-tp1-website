@@ -2,39 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-.link{
-  @apply p-4 text-lg text-[color:var(--c-grey-900)] font-semibold inline-block transition-all duration-200 hover:text-[color:var(--color-blackLight-main)]
+.link {
+  @apply p-4 text-lg text-[color:var(--c-grey-900)] font-semibold inline-block transition-all duration-200 hover:text-[color:var(--color-blackLight-main)];
 }
 
-.line{
-  @apply h-px w-full opacity-50 my-2 bg-black
+.line {
+  @apply h-px w-full opacity-50 my-2 bg-black;
 }
 
-.title{
-  @apply text-center text-3xl font-bold
+.title {
+  @apply text-center text-3xl font-bold;
 }
 
-.description{
-  @apply text-center text-lg font-medium
+.description {
+  @apply text-center text-lg font-medium;
 }
 
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 }
 
 html {
   height: 100%;
 }
 
-body{
+body {
   background-color: var(--color-white-bg);
   padding: 6rem 3rem 3rem 3rem;
-  /* min-height: 100vh; */
-  height:100%;
+  height: 100%;
+  /* min-height: 100%; */
+  width: 100%;
+  overflow: auto;
   /* padding-top: 4rem; */
 }
 
@@ -52,17 +54,17 @@ body{
 
 :root {
   --color-black-main: #212529;
-  --color-blackLight-main: #343A40;
+  --color-blackLight-main: #343a40;
   --color-greyDark-main: #495057;
-  --color-grey-main: #6C757D;
-  --color-greyLight-main: #ADB5BD;
-  --color-greyLighter-main: #CED4DA;
-  --color-whiteDarker-main: #DEE2E6;
-  --color-whiteDark-main: #E9ECEF;
-  --color-white-main: #F8F9FA;
+  --color-grey-main: #6c757d;
+  --color-greyLight-main: #adb5bd;
+  --color-greyLighter-main: #ced4da;
+  --color-whiteDarker-main: #dee2e6;
+  --color-whiteDark-main: #e9ecef;
+  --color-white-main: #f8f9fa;
   /* --color-white-bg: #FAFCFF; */
-  --color-white-bg: #FAFAFA;
-  --color-white: #FFF;
+  --color-white-bg: #fafafa;
+  --color-white: #fff;
 
   --c-grey-200: #e8e7ec;
   --c-ttc-primary-100: #f2f2ff;
@@ -70,7 +72,7 @@ body{
   --c-ttc-primary-main: #0001ff;
   --c-tti-primary-main: #0047ff;
   --color-blue-hover: #d8e3ff;
-  --main-bg-color: #FAFCFF;
+  --main-bg-color: #fafcff;
   --c-ttn-primary-main: #26a0ff;
   --card-background: #edf1f5;
   --green-smile: #1fb912;
@@ -81,9 +83,8 @@ body{
   --c-ttn-primary-200: #def0ff;
 
   --main-grey-primary-color: rgb(158, 158, 158);
-  --main-grey-secondary-color: rgb(225,225,225);
+  --main-grey-secondary-color: rgb(225, 225, 225);
   --main-grey-tertiary-color: rgb(204, 204, 204);
   --input-border-bottom-gray-primary-color: rgb(221, 221, 221);
-  --main-blue-primary-color: rgb(63,81,181);
+  --main-blue-primary-color: rgb(63, 81, 181);
 }
-
