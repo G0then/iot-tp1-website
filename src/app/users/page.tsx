@@ -56,6 +56,7 @@ export default function UsersPage() {
             title={user.username}
             text={user.name}
             version={2}
+            href={`/users/${user.username}`}
             description={user.email}
           />
         ))}

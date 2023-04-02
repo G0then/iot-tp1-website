@@ -34,30 +34,30 @@ const columns: GridColDef[] = [
   },
 ];
 
-type DeviceLogsInfoProps = {
-  device_pid: string;
+type UserLogsInfoProps = {
+  user_username: string;
 };
 
-export default function DeviceLogsInfo({ device_pid }: DeviceLogsInfoProps) {
-  const urlGetDeviceLogs = `devices/${device_pid}/logs`;
+export default function UserLogsInfo({ user_username }: UserLogsInfoProps) {
+  const urlGetUserLogs = `users/${user_username}/logs`;
   const {
-    data: deviceLogs,
-    isLoading: deviceLogsLoading,
-    error: deviceLogsError,
-  } = useQuery<LogDto[]>(urlGetDeviceLogs);
+    data: userLogs,
+    isLoading: userLogsLoading,
+    error: userLogsError,
+  } = useQuery<LogDto[]>(urlGetUserLogs);
 
   //Ocorreu um erro
-  if (deviceLogsError) {
+  if (userLogsError) {
     return <NoData text="Error fetching data!!" />;
   }
 
   //A carregar os dados
-  if (deviceLogsLoading) {
+  if (userLogsLoading) {
     return <LoadingData />;
   }
 
   return (
-    <Table rows={deviceLogs} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
+    <Table rows={userLogs} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
       
   );
 }

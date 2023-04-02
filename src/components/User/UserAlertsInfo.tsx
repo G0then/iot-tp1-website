@@ -1,10 +1,11 @@
 "use client";
 
-import { LogDto } from "@/types/log";
+import { AlertDto } from "@/types/alert";
 import { useQuery } from "@/utils/requests/getSwr";
 import { GridColDef } from "@mui/x-data-grid";
 import { DateTime } from "luxon";
 import React from "react";
+import AlertButton from "../Button/AlertButton";
 import { NoData } from "../Error/NoData";
 import { LoadingData } from "../Loading/LoadingData";
 import Table from "../Table/Table";
@@ -17,10 +18,29 @@ const columns: GridColDef[] = [
     headerAlign: "left",
   },
   {
+    field: "type",
+    headerName: "Alert Type",
+    flex: 1,
+    headerAlign: "left",
+  },
+  {
     field: "message",
     headerName: "Message",
     flex: 1,
     headerAlign: "left",
+  },
+  {
+    field: "value",
+    headerName: "Value",
+    flex: 1,
+    headerAlign: "left",
+  },
+  {
+    field: "cleared",
+    headerName: "State",
+    flex: 1,
+    headerAlign: "left",
+    renderCell: AlertButton,
   },
   {
     field: "timestamp",
@@ -34,30 +54,30 @@ const columns: GridColDef[] = [
   },
 ];
 
-type DeviceLogsInfoProps = {
-  device_pid: string;
+type UserAlertsInfoProps = {
+  user_username: string;
 };
 
-export default function DeviceLogsInfo({ device_pid }: DeviceLogsInfoProps) {
-  const urlGetDeviceLogs = `devices/${device_pid}/logs`;
+export default function UserAlertsInfo({ user_username }: UserAlertsInfoProps) {
+  const urlGetUserAlerts = `users/${user_username}/alerts`;
   const {
-    data: deviceLogs,
-    isLoading: deviceLogsLoading,
-    error: deviceLogsError,
-  } = useQuery<LogDto[]>(urlGetDeviceLogs);
+    data: userAlerts,
+    isLoading: userAlertsLoading,
+    error: userAlertsError,
+  } = useQuery<AlertDto[]>(urlGetUserAlerts);
 
   //Ocorreu um erro
-  if (deviceLogsError) {
+  if (userAlertsError) {
     return <NoData text="Error fetching data!!" />;
   }
 
   //A carregar os dados
-  if (deviceLogsLoading) {
+  if (userAlertsLoading) {
     return <LoadingData />;
   }
 
   return (
-    <Table rows={deviceLogs} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
+    <Table rows={userAlerts} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
       
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { LogDto } from "@/types/log";
+import { ReadingDto } from "@/types/reading";
 import { useQuery } from "@/utils/requests/getSwr";
 import { GridColDef } from "@mui/x-data-grid";
 import { DateTime } from "luxon";
@@ -17,8 +17,8 @@ const columns: GridColDef[] = [
     headerAlign: "left",
   },
   {
-    field: "message",
-    headerName: "Message",
+    field: "value",
+    headerName: "Value",
     flex: 1,
     headerAlign: "left",
   },
@@ -34,30 +34,30 @@ const columns: GridColDef[] = [
   },
 ];
 
-type DeviceLogsInfoProps = {
-  device_pid: string;
+type UserReadingsInfoProps = {
+  user_username: string;
 };
 
-export default function DeviceLogsInfo({ device_pid }: DeviceLogsInfoProps) {
-  const urlGetDeviceLogs = `devices/${device_pid}/logs`;
+export default function UserReadingsInfo({ user_username }: UserReadingsInfoProps) {
+  const urlGetUserReadings = `users/${user_username}/readings`;
   const {
-    data: deviceLogs,
-    isLoading: deviceLogsLoading,
-    error: deviceLogsError,
-  } = useQuery<LogDto[]>(urlGetDeviceLogs);
+    data: userReadings,
+    isLoading: userReadingsLoading,
+    error: userReadingsError,
+  } = useQuery<ReadingDto[]>(urlGetUserReadings);
 
   //Ocorreu um erro
-  if (deviceLogsError) {
+  if (userReadingsError) {
     return <NoData text="Error fetching data!!" />;
   }
 
   //A carregar os dados
-  if (deviceLogsLoading) {
+  if (userReadingsLoading) {
     return <LoadingData />;
   }
 
   return (
-    <Table rows={deviceLogs} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
+    <Table rows={userReadings} columns={columns} pageSize={25} getRowId={(row) => row._id.$oid} />
       
   );
 }
