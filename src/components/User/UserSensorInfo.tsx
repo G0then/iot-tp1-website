@@ -127,13 +127,6 @@ export default function UserSensorInfo({
 
   return (
     <div className="flex flex-col space-y-4 w-full">
-      <TableHeader
-        title="Device Sensors"
-        description="Check info about all sensors related to this device"
-        textAddButon="+ Add New Sensor"
-        disableAddButton
-        disableUpdateButton
-      />
       <Table
         rows={userSensors}
         columns={columns}

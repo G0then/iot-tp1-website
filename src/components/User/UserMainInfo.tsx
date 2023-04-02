@@ -23,6 +23,7 @@ const sectionArray = [
 type UserMainInfoProps = {
   user_username: string;
   userDevicesInfo: DeviceDto[];
+  userInfo: UserDto;
   mutateUserInfo: KeyedMutator<UserDto>;
   mutateUserDeviceCountDocuments: KeyedMutator<CountDocumentsDto>;
   mutateUserDevicesInfo: KeyedMutator<DeviceDto[]>;
@@ -30,9 +31,11 @@ type UserMainInfoProps = {
 
 export default function UserMainInfo({
   user_username,
+  userInfo,
   userDevicesInfo,
   mutateUserInfo,
-  mutateUserDeviceCountDocuments
+  mutateUserDeviceCountDocuments,
+  mutateUserDevicesInfo,
 }: UserMainInfoProps) {
   const [selectedSection, setSelectedSection] = useState(sectionArray[0]);
 
@@ -52,7 +55,7 @@ export default function UserMainInfo({
       <div className="flex max-h-[32rem] flex-col justify-center overflow-auto bg-white rounded-lg sm:shadow-md transition-shadow duration-200">
         <div className="flex h-auto flex-col justify-center overflow-auto m-5">
           {selectedSection === "Devices" ? (
-            <UserDeviceInfo  user_username={user_username} userDevicesInfo={userDevicesInfo}/>
+            <UserDeviceInfo  userInfo={userInfo} userDevicesInfo={userDevicesInfo} mutateUserInfo={mutateUserInfo} mutateUserDeviceCountDocuments={mutateUserDeviceCountDocuments} mutateUserDevicesInfo={mutateUserDevicesInfo}/>
           ) :selectedSection === "Sensors" ? (
             <UserSensorInfo  user_username={user_username} userDevicesInfo={userDevicesInfo}/>
           ) : selectedSection === "Readings" ? (

@@ -60,7 +60,7 @@ export default function UserUsernamePage({params}: any) {
       />
       
       <UserTopInfoGrid userCountDocuments={userCountDocuments}/>
-      <UserMainInfo user_username={user_username} userDevicesInfo={userDevicesInfo} mutateUserInfo={mutateUserInfo} mutateUserDeviceCountDocuments={mutateUserDeviceCountDocuments} mutateUserDevicesInfo={mutateUserDevicesInfo}/>
+      <UserMainInfo user_username={user_username} userInfo={userInfo} userDevicesInfo={userDevicesInfo} mutateUserInfo={mutateUserInfo} mutateUserDeviceCountDocuments={mutateUserDeviceCountDocuments} mutateUserDevicesInfo={mutateUserDevicesInfo}/>
       {/* <DeviceBottomInfo deviceInfo={deviceInfo} mutateDeviceInfo={mutateDeviceInfo} mutateDeviceCountDocuments={mutateDeviceCountDocuments}/> */}
     </div>
   );

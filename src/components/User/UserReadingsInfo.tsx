@@ -11,6 +11,12 @@ import Table from "../Table/Table";
 
 const columns: GridColDef[] = [
   {
+    field: "device_pid",
+    headerName: "Device PID",
+    flex: 1,
+    headerAlign: "left",
+  },
+  {
     field: "sensor_pid",
     headerName: "Sensor PID",
     flex: 1,
