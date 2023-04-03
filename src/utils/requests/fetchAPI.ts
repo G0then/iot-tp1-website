@@ -1,4 +1,4 @@
-const api = "http://localhost:8080"; //Url da API do servidor
+const api = "http://192.168.1.12:8080"; //Url da API do servidor
 
 //Função que faz o pedido à API
 // Nota: o parâmetro insideData é apenas utilizado quando a resposta ao pedido vem dentro de um objeto data (usado no react admin)
