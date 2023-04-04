@@ -95,7 +95,7 @@ export default function AddUserDevicesForm({
 
   return (
     <form className="w-full flex flex-col space-y-6" onSubmit={handleSubmit}>
-    <div className="w-96 h-80">
+    <div className="lg:w-[900px] md:w-[600px] w-[300px] h-80 overflow-auto">
       <DataGrid
         rows={devices}
         // loading={irrigationPlanTypes.length === 0} //Loading enquanto os dados estão a ser carregados

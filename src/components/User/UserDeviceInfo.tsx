@@ -218,7 +218,7 @@ export default function UserDeviceInfo({
         </CustomModal>
 
         <CustomModal
-          title="Edit Devices"
+          title="Edit User Devices"
           description="Select the devices for this user"
           open={openAddDeviceModal}
           handleClose={handleCloseAddDeviceModal}
