@@ -53,8 +53,6 @@ export default function UserDeviceInfo({
     method: "PUT",
   });
 
-  console.log(userDevicesState)
-
   const handleAddButton = () => {
     setOpenAddDeviceModal(true);
   };

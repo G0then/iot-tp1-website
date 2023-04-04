@@ -74,9 +74,6 @@ export default function DeviceSensorInfo({
   });
   const [formFields, setFormFields] = useState(defaultFormFields);
 
-  console.log(formFields)
-
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };

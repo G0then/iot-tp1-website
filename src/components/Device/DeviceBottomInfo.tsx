@@ -64,6 +64,10 @@ export default function DeviceBottomInfo({
     method: "PUT",
   });
 
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
   const handleRemoveButton = () => {
     setOpenRemoveDeviceModal(true);
   };
@@ -78,6 +82,7 @@ export default function DeviceBottomInfo({
 
   const handleCloseEditDeviceModal = () => {
     setOpenEditDeviceModal(false);
+    resetFormFields();
   };
 
   //Hook para alterar os dados do state. Mantém os dados passados e altera os novos enviados. O Partial permite receber nulls

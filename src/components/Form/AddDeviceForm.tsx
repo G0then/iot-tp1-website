@@ -69,7 +69,7 @@ export default function AddDeviceForm({
           value={location.latitude}
           onChange={(e) =>
             handleChange({
-              location: { ...location, latitude: +e.target.value },
+              location: { ...location, latitude: e.target.value ? +e.target.value : undefined },
             })
           }
         />
@@ -81,7 +81,7 @@ export default function AddDeviceForm({
           value={location.longitude}
           onChange={(e) =>
             handleChange({
-              location: { ...location, longitude: +e.target.value },
+              location: { ...location, longitude: e.target.value ? +e.target.value : undefined },
             })
           }
         />
