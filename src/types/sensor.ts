@@ -7,4 +7,6 @@ export type SensorDto = {
     status: string;
     unit: string;
     unit_name: string;
+    minAlertValue?: number | null;
+    maxAlertValue?: number | null;
 }

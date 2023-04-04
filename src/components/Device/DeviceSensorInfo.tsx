@@ -33,6 +33,8 @@ const defaultFormFields: SensorDto = {
   description: "",
   name: "",
   unit_name: "",
+  minAlertValue: undefined,
+  maxAlertValue: undefined,
 };
 
 type DeviceSensorInfoProps = {
@@ -71,6 +73,9 @@ export default function DeviceSensorInfo({
     method: "DELETE",
   });
   const [formFields, setFormFields] = useState(defaultFormFields);
+
+  console.log(formFields)
+
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);

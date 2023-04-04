@@ -23,7 +23,7 @@ export default function AddSensorForm({
   handleChange,
   handleClose,
 }: AddSensorFormProps) {
-  const { pid, name, description, status, calibrate, config, unit, unit_name } =
+  const { pid, name, description, status, calibrate, config, unit, unit_name, maxAlertValue, minAlertValue } =
     formFields;
 
   return (
@@ -62,18 +62,35 @@ export default function AddSensorForm({
           activeItem={status}
         />
         <CustomInput
-          name="calibrate"
-          title="Calibration"
-          placeholder="Insert Sensor Calibration"
-          value={calibrate}
-          onChange={(e) => handleChange({ calibrate: e.target.value })}
+          name="minAlertValue"
+          type="number"
+          title="Minimum Alert Value"
+          placeholder="Insert Minimum Alert Value"
+          value={minAlertValue}
+          onChange={(e) => handleChange({ minAlertValue: e.target.value ? +e.target.value : undefined })}
+        />
+        <CustomInput
+          name="maxAlertValue"
+          type="number"
+          title="Maximum Alert Value"
+          placeholder="Insert Maximum Alert Value"
+          value={maxAlertValue}
+          onChange={(e) => handleChange({ maxAlertValue: e.target.value ? +e.target.value : undefined})}
         />
         <CustomInput
           name="config"
           title="Configuration"
           placeholder="Insert Sensor Configuration"
+          aditionalClass="col-span-2"
           value={config}
           onChange={(e) => handleChange({ config: e.target.value })}
+        />
+        <CustomInput
+          name="calibrate"
+          title="Calibration"
+          placeholder="Insert Sensor Calibration"
+          value={calibrate}
+          onChange={(e) => handleChange({ calibrate: e.target.value })}
         />
         <CustomInput
           name="unit"
