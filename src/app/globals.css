@@ -6,6 +6,10 @@
   @apply p-4 text-lg text-[color:var(--c-grey-900)] font-semibold inline-block transition-all duration-200 hover:text-[color:var(--color-blackLight-main)];
 }
 
+.sidebarLink {
+  @apply py-2 px-4 w-full text-lg text-[color:var(--c-grey-900)] font-semibold inline-block transition-all duration-200 hover:text-[color:var(--color-blackLight-main)] hover:bg-[color:var(--c-grey-200)];
+}
+
 .line {
   @apply h-px w-full opacity-50 my-2 bg-black;
 }

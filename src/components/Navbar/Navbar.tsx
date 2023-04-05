@@ -1,16 +1,33 @@
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
 import DarkModeSwitch from "../DarkMode/DarkModeSwitch";
+import { IoMenu } from "react-icons/io5";
+import { useState } from "react";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Navbar = () => {
+  const [sidebar, setSidebar] = useState(false);
+  
+  const onSidebarLinkClick = () => {
+    setSidebar(false);
+  }
+
   return (
-    <div className="bg-[color:var(--color-white)] h-16 px-6 border-b-[1px] border-[color:var(--c-grey-200)] flex items-center justify-between top-0 left-0 fixed w-full">
-      <div className="w-[150px] h-[40px] relative">
-        <Link href="/">
-          <Image src="/UAlg.png" fill alt="Ualg Banner" />
-        </Link>
+    <>
+    <div className="bg-[color:var(--color-white)] h-16 px-6 border-b-[1px] border-[color:var(--c-grey-200)] grid  grid-cols-4 gap-3 mx-auto top-0 left-0 fixed w-full z-9999">
+      <div className="xl:hidden flex justify-start items-center">
+        <IoMenu className="text-2xl cursor-pointer" onClick={() => setSidebar(!sidebar)} />
       </div>
-      <div className="flex space-x-4">
+      <div className="h-full flex items-center justify-center xl:justify-start col-span-2 xl:col-span-1 select-none">
+        <div className="relative w-[150px] h-[40px]">
+          <Link href="/">
+            <Image src="/UAlg.png" fill alt="Ualg Banner" />
+          </Link>
+        </div>
+      </div>
+      <div className="xl:flex hidden space-x-4 items-center justify-center col-span-2">
        <Link href="/" className="link">
           Dashboard
         </Link>
@@ -33,10 +50,12 @@ const Navbar = () => {
           Users
         </Link>
       </div>
-      <div className="w-64 flex justify-end">
+      <div className="flex justify-end items-center">
         <DarkModeSwitch />
       </div>
     </div>
+    <Sidebar showSidebar={sidebar} onSidebarLinkClick={onSidebarLinkClick}/>
+    </>
   );
 };
 
