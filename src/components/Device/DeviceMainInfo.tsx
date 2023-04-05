@@ -51,7 +51,7 @@ export default function DeviceMainInfo({
         ))}
       </div>
 
-      <div className="flex max-h-[32rem] flex-col justify-center overflow-auto bg-white rounded-lg sm:shadow-md transition-shadow duration-200">
+      <div className="flex max-h-[38rem] flex-col justify-center overflow-auto bg-white rounded-lg sm:shadow-md transition-shadow duration-200">
         <div className="flex h-auto flex-col justify-center overflow-auto m-5">
           {selectedSection === "Sensors" ? (
             <DeviceSensorInfo deviceInfo={deviceInfo} device_pid={device_pid} mutateDeviceInfo={mutateDeviceInfo} mutateDeviceCountDocuments={mutateDeviceCountDocuments}/>

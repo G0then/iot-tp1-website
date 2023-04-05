@@ -44,7 +44,7 @@ type ReadingMainInfoProps = {
 export default function ReadingMainInfo({ readings }: ReadingMainInfoProps) {
   return (
     <div className="flex w-full flex-col space-y-2">
-      <div className="flex max-h-[32rem] flex-col justify-center overflow-auto bg-white rounded-lg sm:shadow-md transition-shadow duration-200">
+      <div className="flex max-h-[38rem] flex-col justify-center overflow-auto bg-white rounded-lg sm:shadow-md transition-shadow duration-200">
         <div className="flex h-auto flex-col justify-center overflow-auto m-5">
           <Table
             rows={readings}
