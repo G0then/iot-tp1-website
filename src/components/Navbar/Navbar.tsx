@@ -5,9 +5,9 @@ import DarkModeSwitch from "../DarkMode/DarkModeSwitch";
 const Navbar = () => {
   return (
     <div className="bg-[color:var(--color-white)] h-16 px-6 border-b-[1px] border-[color:var(--c-grey-200)] flex items-center justify-between top-0 left-0 fixed w-full">
-      <div className="w-64">
+      <div className="w-[150px] h-[40px] relative">
         <Link href="/">
-          <Image src="/UAlg.png" width={150} height={30} alt="Ualg Banner" />
+          <Image src="/UAlg.png" fill alt="Ualg Banner" />
         </Link>
       </div>
       <div className="flex space-x-4">
