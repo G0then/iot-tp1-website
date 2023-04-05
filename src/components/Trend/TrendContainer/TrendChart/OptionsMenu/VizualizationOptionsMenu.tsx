@@ -1,8 +1,7 @@
 import styles from "./VizualizationOptionsMenu.module.css";
-import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-import { createTheme, TextFieldProps, ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { ptPT } from "@mui/material/locale";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
@@ -10,10 +9,8 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ChartTypeSelect } from "../../utils/Select/SelectChartType";
 import { chartTypeCombobox } from "../../../../../utils/objects/chartTypeData";
-import { ChartDateFormatSelect } from "../../utils/Select/SelectDateFormat";
-import { getStartAndStopDateChart } from "../../../../../utils/chart/DateFunctions/getStartAndStopDateChart";
 import { DateTime } from "luxon";
-import { dateComboboxData, dateTabEnum } from "@/utils/objects/combobox/date";
+import { dateTabEnum } from "@/utils/objects/combobox/date";
 import { trendState } from "@/components/Device/DeviceChartInfo";
 
 type TrendChartVizualizationOptionsMenuProps = {
@@ -77,7 +74,7 @@ export const TrendChartVizualizationOptionsMenu = ({
               // renderInput={(params: TextFieldProps) => (
               //   <TextField {...params} style={{ width: "100%" }} size="small" />
               // )}
-              maxDate={DateTime.fromMillis(yesterday.toMillis())}
+              maxDate={DateTime.fromMillis(today.toMillis())}
               value={StartDateTime ? DateTime.fromSQL(StartDateTime) : null}
               onChange={(startDateTime: DateTime | null) => {
                 const newDate = startDateTime ? 
@@ -122,7 +119,7 @@ export const TrendChartVizualizationOptionsMenu = ({
                   ? DateTime.fromMillis(new Date(StartDateTime).getTime())
                   : undefined
               }
-              maxDate={DateTime.fromMillis(yesterday.toMillis())}
+              maxDate={DateTime.fromMillis(today.toMillis())}
               onChange={(stopDateTime: DateTime | null) => {
                 const newDate = stopDateTime ? 
                   activeTab === dateTabEnum.Day ? 

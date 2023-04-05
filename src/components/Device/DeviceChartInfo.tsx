@@ -30,15 +30,17 @@ export type conditionTrendState = {
 //Objeto default do state de Trend
 const getDefaultTrendState = () => {
   const today = new Date(); //Devia usar este mas o backend não permite ir buscar dados do dia atual
-  const yesterday = new Date(today.setDate(today.getDate() - 1));
+  // const yesterday = new Date(today.setDate(today.getDate() - 1));
+
+  console.log("today: ", today);
 
   return {
     ChartType: Line,
     activeTab: dateTabEnum.Day,
-    StartDateTime: DateTime.fromJSDate(yesterday)
+    StartDateTime: DateTime.fromJSDate(today)
       .startOf("day")
       .toFormat("yyyy-LL-dd TT"),
-    StopDateTime: DateTime.fromJSDate(yesterday)
+    StopDateTime: DateTime.fromJSDate(today)
       .endOf("day")
       .toFormat("yyyy-LL-dd TT"),
     ListConditions: [],
@@ -54,20 +56,15 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
   const [trendState, setTrendState] = useState<trendState>(() =>
     getDefaultTrendState()
   );
+  console.log("trendState: ", trendState);
   let urlGetDeviceData =
     device_pid && `devices/${device_pid}/data/chart?sort=1`;
   if (device_pid) {
     if (trendState.StartDateTime) {
-      urlGetDeviceData += `&startDate=${DateTime.fromSQL(
-        trendState.StartDateTime
-      )
-        .toUTC()
-        .toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`;
+      urlGetDeviceData += `&startDate=${trendState.StartDateTime}`;
     }
     if (trendState.StopDateTime) {
-      urlGetDeviceData += `&stopDate=${DateTime.fromSQL(trendState.StopDateTime)
-        .toUTC()
-        .toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`;
+      urlGetDeviceData += `&stopDate=${trendState.StopDateTime}`;
     }
   }
 
