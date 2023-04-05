@@ -6,6 +6,9 @@ import Providers from "./providers";
 export const metadata = {
   title: "IOT Platform | UAlg",
   description: "IOT Platform by UAlg",
+  icons: {
+    icon: "/ualgIcon.png",
+  },
 };
 
 export default function RootLayout({
