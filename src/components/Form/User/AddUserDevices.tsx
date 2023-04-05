@@ -101,7 +101,13 @@ export default function AddUserDevicesForm({
         // loading={irrigationPlanTypes.length === 0} //Loading enquanto os dados estão a ser carregados
         columns={columns}
         getRowId={(row: DeviceDto) => row.pid}
-        pageSizeOptions={[2]}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
         // autoHeight
         // hideFooter
         hideFooterSelectedRowCount

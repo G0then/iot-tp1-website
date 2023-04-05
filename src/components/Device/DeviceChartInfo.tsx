@@ -32,8 +32,6 @@ const getDefaultTrendState = () => {
   const today = new Date(); //Devia usar este mas o backend não permite ir buscar dados do dia atual
   // const yesterday = new Date(today.setDate(today.getDate() - 1));
 
-  console.log("today: ", today);
-
   return {
     ChartType: Line,
     activeTab: dateTabEnum.Day,
@@ -56,7 +54,6 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
   const [trendState, setTrendState] = useState<trendState>(() =>
     getDefaultTrendState()
   );
-  console.log("trendState: ", trendState);
   let urlGetDeviceData =
     device_pid && `devices/${device_pid}/data/chart?sort=1`;
   if (device_pid) {
