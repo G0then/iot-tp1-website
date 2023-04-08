@@ -48,12 +48,17 @@ export default function DevicesPage() {
   } = useRequest<CreateDeviceDto, CreateDeviceDto>();
   const [formFields, setFormFields] = useState(defaultFormFields);
 
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
   const handleAddButton = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    resetFormFields();
   };
 
    //Hook para alterar os dados do state. Mantém os dados passados e altera os novos enviados. O Partial permite receber nulls
