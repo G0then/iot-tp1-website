@@ -22,23 +22,23 @@ export const validateFormAddDevice = (formField: CreateDeviceDto) => {
   let formAddDeviceErrorObj: FormAddDeviceError =
     getDefaultAddDeviceFormErrorState();
 
-  //Verificação do pid sensor
+  //Verificação do pid device
   if (!formField.pid) {
-    formAddDeviceErrorObj.Pid = "Enter sensor PID";
+    formAddDeviceErrorObj.Pid = "Enter device PID";
   }
 
-  //Verificação do nome sensor
+  //Verificação do nome device
   //O nome tem que ter pelo menos 5 caracters
   if (!formField.name || formField.name.length < 5) {
     formAddDeviceErrorObj.Name =
-      "Sensor name should have more than 5 characters";
+      "Device name should have more than 5 characters";
   }
 
-  //Verificação da descrição do sensor
+  //Verificação da descrição do device
   //A descrição tem que ter pelo menos 5 caracters
   if (!formField.description || formField.description.length < 5) {
     formAddDeviceErrorObj.Description =
-      "Sensor description should have more than 5 characters";
+      "Device description should have more than 5 characters";
   }
 
   //Verificação do nome da unidade de medida
