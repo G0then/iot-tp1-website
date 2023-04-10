@@ -31,7 +31,7 @@ export default function LogsPage() {
   return (
     <div className="flex flex-col space-y-10 justify-center items-center">
       <PageTitle
-        title="Alerts"
+        title="Logs"
         description="All logs registered in system"
       />
 
