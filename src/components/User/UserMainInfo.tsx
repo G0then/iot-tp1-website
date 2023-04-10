@@ -65,7 +65,7 @@ export default function UserMainInfo({
           ) : selectedSection === "Logs" ? (
             <UserLogsInfo user_username={user_username} />
           ) : (
-            <div>Em Construção...</div>
+            <div>To be implemented in future...</div>
           )}
         </div>
       </div>

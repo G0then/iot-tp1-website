@@ -68,7 +68,7 @@ export default function DeviceMainInfo({
           ) : selectedSection === "Location" ? (
             <DeviceLocationInfo deviceInfo={deviceInfo} />
           ) : (
-            <div>Em Construção...</div>
+            <div>To be implemented in future...</div>
           )}
         </div>
       </div>

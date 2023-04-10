@@ -53,7 +53,7 @@ export default function SensorMainInfo({
               sensorInfo={sensorInfo}
             />
           ) : (
-            <div>Em Construção...</div>
+            <div>To be implemented in future...</div>
           )}
         </div>
       </div>
