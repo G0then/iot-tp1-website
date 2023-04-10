@@ -2,22 +2,17 @@
 
 import { DataStatisticsDto } from "@/types/data";
 import { useQuery } from "@/utils/requests/getSwr";
-import React from "react";
 import { NoData } from "../Error/NoData";
 import { LoadingData } from "../Loading/LoadingData";
-import { SensorDto } from "@/types/sensor";
 
-type SensorDataStatisticsInfoProps = {
-  sensorInfo: SensorDto;
+type DeviceDataStatisticsInfoProps = {
   device_pid: string;
 };
 
-export default function SensorDataStatisticsInfo({
-  sensorInfo,
+export default function DevicerDataStatisticsInfo({
   device_pid
-}: SensorDataStatisticsInfoProps) {
-  const { pid: sensor_pid, unit } = sensorInfo;
-  const urlGetSensorDataStatistics = `devices/${device_pid}/sensors/${sensor_pid}/data/statistics`;
+}: DeviceDataStatisticsInfoProps) {
+  const urlGetSensorDataStatistics = `devices/${device_pid}/data/statistics`;
   const {
     data: dataStatistics,
     isLoading: dataStatisticsLoading,
@@ -43,10 +38,10 @@ export default function SensorDataStatisticsInfo({
       </h3>
       <ul className="font-medium pl-4">
         <li>- Number of Readings: {count.toFixed(2)}</li>
-        <li>- Average Readings Value: {average.toFixed(2)} {unit}</li>
-        <li>- Max Reading: {max.toFixed(2)} {unit}</li>
-        <li>- Min Reading: {min.toFixed(2)} {unit}</li>
-        <li>- Sum of All Readings: {sum.toFixed(2)} {unit}</li>
+        <li>- Average Readings Value: {average.toFixed(2)}</li>
+        <li>- Max Reading: {max.toFixed(2)}</li>
+        <li>- Min Reading: {min.toFixed(2)}</li>
+        <li>- Sum of All Readings: {sum.toFixed(2)}</li>
       </ul>
     </div>
   );

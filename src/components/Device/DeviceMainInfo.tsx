@@ -12,6 +12,7 @@ import DeviceLogsInfo from "./DeviceLogsInfo";
 import DeviceReadingsInfo from "./DeviceReadingsInfo";
 import DeviceSensorInfo from "./DeviceSensorInfo";
 import DeviceUsersInfo from "./DeviceUsersInfo";
+import DeviceDataStatisticsInfo from "./DeviceDataStatisticsInfo";
 
 const sectionArray = [
   "Sensors",
@@ -19,6 +20,7 @@ const sectionArray = [
   "Alerts",
   "Logs",
   "Chart",
+  "Data Statistics",
   "Users",
   "Location",
 ];
@@ -63,6 +65,10 @@ export default function DeviceMainInfo({
             <DeviceLogsInfo device_pid={device_pid} />
           )  : selectedSection === "Chart" ? (
             <DeviceChartInfo deviceInfo={deviceInfo} />
+          ) : selectedSection === "Data Statistics" ? (
+            <DeviceDataStatisticsInfo
+              device_pid={device_pid}
+            />
           ) : selectedSection === "Users" ? (
             <DeviceUsersInfo device_pid={device_pid} />
           ) : selectedSection === "Location" ? (
