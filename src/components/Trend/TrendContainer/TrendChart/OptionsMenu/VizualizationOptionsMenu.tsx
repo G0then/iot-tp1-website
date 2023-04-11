@@ -10,8 +10,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ChartTypeSelect } from "../../utils/Select/SelectChartType";
 import { chartTypeCombobox } from "../../../../../utils/objects/chartTypeData";
 import { DateTime } from "luxon";
-import { dateTabEnum } from "@/utils/objects/combobox/date";
+import { dateComboboxData, dateTabEnum } from "@/utils/objects/combobox/date";
 import { trendState } from "@/components/Device/DeviceChartInfo";
+import { ChartDateFormatSelect } from "../../utils/Select/SelectDateFormat";
+import { getStartAndStopDateChart } from "@/utils/chart/DateFunctions/getStartAndStopDateChart";
 
 type TrendChartVizualizationOptionsMenuProps = {
   handleChangeTrend: (newState: Partial<trendState>) => void;
@@ -147,7 +149,7 @@ export const TrendChartVizualizationOptionsMenu = ({
           </div>
         </LocalizationProvider>
       </ThemeProvider>
-      {/* <ChartDateFormatSelect
+      <ChartDateFormatSelect
         label="Filtrar"
         comboboxData={dateComboboxData}
         activeItem={activeTab}
@@ -155,7 +157,7 @@ export const TrendChartVizualizationOptionsMenu = ({
           const newDates = getStartAndStopDateChart(tab, StartDateTime, StopDateTime);
           handleChangeTrend({ activeTab: tab, StartDateTime: newDates[0],  StopDateTime: newDates[1]});
         }}
-      /> */}
+      />
     </div>
   );
 };

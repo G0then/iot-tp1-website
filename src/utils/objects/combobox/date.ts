@@ -13,16 +13,16 @@ export enum dateTabEnum {
 export const dateComboboxData: comboboxDataDto[] = [
   {
     name: "day",
-    displayName: "Dia",
+    displayName: "Day",
   },
 
   {
     name: "month",
-    displayName: "Mês",
+    displayName: "Month",
   },
 
   {
     name: "year",
-    displayName: "Ano",
+    displayName: "Year",
   },
 ];

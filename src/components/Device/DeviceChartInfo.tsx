@@ -15,6 +15,7 @@ import { Line } from "react-chartjs-2";
 import { CustomChart } from "../CustomChart/CustomChart";
 import { TrendChartVizualizationOptionsMenu } from "../Trend/TrendContainer/TrendChart/OptionsMenu/VizualizationOptionsMenu";
 import { DeviceDto } from "@/types/device";
+import { ChartData } from "@/types/data";
 
 export type trendState = {
   ChartType: any;
@@ -55,7 +56,7 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
     getDefaultTrendState()
   );
   let urlGetDeviceData =
-    device_pid && `devices/${device_pid}/data/chart?sort=1`;
+    device_pid && `devices/${device_pid}/data/chart/${trendState.activeTab}?sort=1`;
   if (device_pid) {
     if (trendState.StartDateTime) {
       urlGetDeviceData += `&startDate=${trendState.StartDateTime}`;
@@ -73,7 +74,7 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
   } = useDebounceQuery<any>(urlGetDeviceData);
 
   const deviceDataFiltered = useMemo(
-    () => deviceData && Object.values(deviceData.data),
+    () => deviceData && Object.entries(deviceData.data),
     [deviceData]
   );
 
@@ -84,26 +85,26 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
       ...newState,
     }));
   };
-
+  
   //Objeto com os dados dos datasets a serem apresentados no gráfico
   const graphDatasets: CustomChartDataType[] = useMemo(
     () =>
       deviceData &&
-      !deviceDataFiltered.every((subArr: ReadingDto[]) => subArr.length === 0) //Verifica se existe pelo menos um dataset com valores
+      !deviceDataFiltered.every((subArr: [string, ChartData[]]) => subArr[1].length === 0) //Verifica se existe pelo menos um dataset com valores
         ? deviceDataFiltered
             .filter(
-              (telemetryDeviceData: ReadingDto[]) =>
-                telemetryDeviceData.length >= 1
+              (telemetryDeviceData: [string, ChartData[]]) =>
+                telemetryDeviceData[1].length >= 1
             ) //Filtra apenas os datasets com pelo menos um valor ou mais
-            .map((filteredTelemetryDeviceData: ReadingDto[], index: number) => {
+            .map((filteredTelemetryDeviceData: [string, ChartData[]], index: number) => {
               var sensor = deviceInfo.sensors.find((sensor) => {
-                return sensor.pid === filteredTelemetryDeviceData[0].sensor_pid;
+                return sensor.pid === filteredTelemetryDeviceData[0];
               });
               return {
-                datasetData: filteredTelemetryDeviceData
-                  ? filteredTelemetryDeviceData.map((data: ReadingDto) => {
-                      const time = new Date(data.timestamp.$date);
-                      return { y: data.value, x: time };
+                datasetData: filteredTelemetryDeviceData[1]
+                  ? filteredTelemetryDeviceData[1].map((data: ChartData) => {
+                      const time = new Date(data._id);
+                      return { y: data.average, x: time };
                     })
                   : [],
                 xLabel:
@@ -113,7 +114,7 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
                     ? "Dia"
                     : "Mês",
                 yLabel: sensor ? sensor.unit_name : "",
-                label: filteredTelemetryDeviceData[0].sensor_pid,
+                label: filteredTelemetryDeviceData[0],
                 unitLabel: sensor ? sensor.unit : "",
                 backgroundColor: defaultChartBackgroundColor[index],
                 borderColor: defaultChartBorderColor[index],

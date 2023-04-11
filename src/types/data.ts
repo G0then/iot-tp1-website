@@ -5,3 +5,9 @@ export type DataStatisticsDto = {
   min: number;
   sum: number;
 };
+
+
+export type ChartData = {
+  _id: string;
+  average: number;
+}

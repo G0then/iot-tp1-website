@@ -14,6 +14,7 @@ import React, { useMemo, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { CustomChart } from "../CustomChart/CustomChart";
 import { TrendChartVizualizationOptionsMenu } from "../Trend/TrendContainer/TrendChart/OptionsMenu/VizualizationOptionsMenu";
+import { ChartData } from "@/types/data";
 
 export type trendState = {
   ChartType: any;
@@ -29,15 +30,14 @@ export type conditionTrendState = {
 //Objeto default do state de Trend
 const getDefaultTrendState = () => {
   const today = new Date(); //Devia usar este mas o backend não permite ir buscar dados do dia atual
-  const yesterday = new Date(today.setDate(today.getDate() - 1));
 
   return {
     ChartType: Line,
     activeTab: dateTabEnum.Day,
-    StartDateTime: DateTime.fromJSDate(yesterday)
+    StartDateTime: DateTime.fromJSDate(today)
       .startOf("day")
       .toFormat("yyyy-LL-dd TT"),
-    StopDateTime: DateTime.fromJSDate(yesterday)
+    StopDateTime: DateTime.fromJSDate(today)
       .endOf("day")
       .toFormat("yyyy-LL-dd TT"),
     ListConditions: [],
@@ -60,7 +60,7 @@ export default function SensorChartInfo({
   let urlGetSensorData =
     device_pid &&
     sensor_pid &&
-    `devices/${device_pid}/sensors/${sensor_pid}/data/chart?sort=1`;
+    `devices/${device_pid}/sensors/${sensor_pid}/data/chart/${trendState.activeTab}?sort=1`;
   if (device_pid && sensor_pid) {
     if (trendState.StartDateTime) {
       urlGetSensorData += `&startDate=${DateTime.fromSQL(
@@ -98,9 +98,9 @@ export default function SensorChartInfo({
         ? [
             {
               datasetData: sensorData.data[sensor_pid]
-                ? sensorData.data[sensor_pid].map((data: ReadingDto) => {
-                    const time = new Date(data.timestamp.$date);
-                    return { y: data.value, x: time };
+                ? sensorData.data[sensor_pid].map((data: ChartData) => {
+                    const time = new Date(data._id);
+                    return { y: data.average, x: time };
                   })
                 : [],
               xLabel:

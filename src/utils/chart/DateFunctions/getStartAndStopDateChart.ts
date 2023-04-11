@@ -15,18 +15,18 @@ export const getStartAndStopDateChart = (nextTab: dateTabEnum, StartDateTime: st
             new Date(startDate.setFullYear(startDate.getFullYear(), 0, 1))
         : undefined;
         
-    const yesterday = DateTime.fromJSDate(new Date(new Date().setDate(new Date().getDate() - 1))).endOf('day').toJSDate() //Dia anterior ao atual
+    // const yesterday = DateTime.fromJSDate(new Date(new Date().setDate(new Date().getDate() - 1))).endOf('day').toJSDate() //Dia anterior ao atual
     const stopDate = StopDateTime ? new Date(StopDateTime) : null; //Verifica se existe data de fim
     //Se existir data de fim, a mesma vai ser alterar conforme a nova tab escolhida
     const newStopDate = stopDate ? 
         nextTab === dateTabEnum.Day ? 
         stopDate :
         nextTab === dateTabEnum.Month ?  
-            (yesterday.getFullYear() === stopDate.getFullYear() && yesterday.getMonth() === stopDate.getMonth()) ?
-            yesterday :
+            (today.getFullYear() === stopDate.getFullYear() && today.getMonth() === stopDate.getMonth()) ?
+            today :
                 new Date(stopDate.setFullYear(stopDate.getFullYear(), stopDate.getMonth() + 1, 0)) 
-            : (yesterday.getFullYear() === stopDate.getFullYear()) ? 
-            yesterday :
+            : (today.getFullYear() === stopDate.getFullYear()) ? 
+            today :
                 new Date(stopDate.setFullYear(stopDate.getFullYear(), 11 + 1, 0))
         : undefined;
 

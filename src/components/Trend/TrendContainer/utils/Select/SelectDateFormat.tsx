@@ -18,7 +18,7 @@ export const ChartDateFormatSelect = ({
   handleChange,
 }: ChartTypeSelectProps) => {
   return (
-    <FormControl sx={{ m: 0, minWidth: "auto", fontSize: ".6em" }} size="small">
+    <FormControl sx={{ m: 0, minWidth: "auto", fontSize: ".6em" }} >
       <InputLabel id="select-small">{label}</InputLabel>
       <Select
         labelId="select-small"
