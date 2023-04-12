@@ -14,6 +14,7 @@ import { dateComboboxData, dateTabEnum } from "@/utils/objects/combobox/date";
 import { trendState } from "@/components/Device/DeviceChartInfo";
 import { ChartDateFormatSelect } from "../../utils/Select/SelectDateFormat";
 import { getStartAndStopDateChart } from "@/utils/chart/DateFunctions/getStartAndStopDateChart";
+import { DateView } from "@mui/x-date-pickers";
 
 type TrendChartVizualizationOptionsMenuProps = {
   handleChangeTrend: (newState: Partial<trendState>) => void;
@@ -46,8 +47,13 @@ export const TrendChartVizualizationOptionsMenu = ({
   const yesterday = DateTime.fromJSDate(new Date(new Date().setDate(new Date().getDate() - 1))).endOf('day') //Dia anterior ao atual
   // const yesterday = DateTime.fromJSDate(today).startOf('day') //Dia anterior ao atual
 
+  console.log("StartDateTime: ", StartDateTime)
+  console.log("StopDateTime: ", StopDateTime)
+  console.log("today: ", today)
+  console.log("yesterday: ", yesterday)
+
   //Cria a lista de views para o datePicker conforme a tab do formato de data ativo
-  let viewsList: any[] = ["year"];   
+  let viewsList: DateView[] = ["year"];   
   if (activeTab === dateTabEnum.Month || activeTab === dateTabEnum.Day) {
     viewsList.push("month");
   }
@@ -123,6 +129,7 @@ export const TrendChartVizualizationOptionsMenu = ({
               }
               maxDate={DateTime.fromMillis(today.toMillis())}
               onChange={(stopDateTime: DateTime | null) => {
+                console.log("stopDateTime: ", stopDateTime)
                 const newDate = stopDateTime ? 
                   activeTab === dateTabEnum.Day ? 
                   stopDateTime :
@@ -130,6 +137,8 @@ export const TrendChartVizualizationOptionsMenu = ({
                     stopDateTime.hasSame(yesterday, 'month') ? yesterday : stopDateTime.endOf('month') :
                     stopDateTime.hasSame(yesterday, 'year') ? yesterday : stopDateTime.endOf('year')
                   : null;
+
+                console.log("newDate: ", newDate)
                 handleChangeTrend({
                   StopDateTime: newDate
                     ? // ? stopDateTimeString.toISOString()
@@ -155,6 +164,7 @@ export const TrendChartVizualizationOptionsMenu = ({
         activeItem={activeTab}
         handleChange={(tab: any) => {
           const newDates = getStartAndStopDateChart(tab, StartDateTime, StopDateTime);
+          console.log(newDates)
           handleChangeTrend({ activeTab: tab, StartDateTime: newDates[0],  StopDateTime: newDates[1]});
         }}
       />

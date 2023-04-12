@@ -1,7 +1,6 @@
 "use client";
 
 import { CustomChartDataType } from "@/types/chart";
-import { ReadingDto } from "@/types/reading";
 import { SensorDto } from "@/types/sensor";
 import {
   defaultChartBackgroundColor,
@@ -42,7 +41,6 @@ const getDefaultTrendState = () => {
     StopDateTime: DateTime.fromJSDate(today)
       .endOf("day")
       .toFormat("yyyy-LL-dd TT"),
-    ListConditions: [],
   };
 };
 
@@ -59,10 +57,16 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
     device_pid && `devices/${device_pid}/data/chart/${trendState.activeTab}?sort=1`;
   if (device_pid) {
     if (trendState.StartDateTime) {
-      urlGetDeviceData += `&startDate=${trendState.StartDateTime}`;
+      urlGetDeviceData += `&startDate=${DateTime.fromSQL(
+        trendState.StartDateTime
+      )
+        .toUTC()
+        .toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`;
     }
     if (trendState.StopDateTime) {
-      urlGetDeviceData += `&stopDate=${trendState.StopDateTime}`;
+      urlGetDeviceData += `&stopDate=${DateTime.fromSQL(trendState.StopDateTime)
+        .toUTC()
+        .toFormat("yyyy-LL-dd HH:mm:ss.SSS")}`;
     }
   }
 
@@ -85,7 +89,9 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
       ...newState,
     }));
   };
-  
+
+  console.log("trendState: ", trendState)
+
   //Objeto com os dados dos datasets a serem apresentados no gráfico
   const graphDatasets: CustomChartDataType[] = useMemo(
     () =>
@@ -109,10 +115,10 @@ export default function DeviceChartInfo({ deviceInfo }: DeviceChartInfoProps) {
                   : [],
                 xLabel:
                   trendState.activeTab === dateTabEnum.Day
-                    ? "Hora"
+                    ? "Hour"
                     : trendState.activeTab === dateTabEnum.Month
-                    ? "Dia"
-                    : "Mês",
+                    ? "Day"
+                    : "Month",
                 yLabel: sensor ? sensor.unit_name : "",
                 label: filteredTelemetryDeviceData[0],
                 unitLabel: sensor ? sensor.unit : "",

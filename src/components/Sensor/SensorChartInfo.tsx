@@ -1,7 +1,6 @@
 "use client";
 
 import { CustomChartDataType } from "@/types/chart";
-import { ReadingDto } from "@/types/reading";
 import { SensorDto } from "@/types/sensor";
 import {
   defaultChartBackgroundColor,
@@ -40,7 +39,6 @@ const getDefaultTrendState = () => {
     StopDateTime: DateTime.fromJSDate(today)
       .endOf("day")
       .toFormat("yyyy-LL-dd TT"),
-    ListConditions: [],
   };
 };
 
@@ -105,10 +103,10 @@ export default function SensorChartInfo({
                 : [],
               xLabel:
                 trendState.activeTab === dateTabEnum.Day
-                  ? "Hora"
+                  ? "Hour"
                   : trendState.activeTab === dateTabEnum.Month
-                  ? "Dia"
-                  : "Mês",
+                  ? "Day"
+                  : "Month",
               yLabel: sensorInfo ? sensorInfo.unit_name : "",
               label: sensorInfo.pid,
               unitLabel: sensorInfo ? sensorInfo.unit : "",
