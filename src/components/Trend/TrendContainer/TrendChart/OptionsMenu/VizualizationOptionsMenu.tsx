@@ -47,19 +47,14 @@ export const TrendChartVizualizationOptionsMenu = ({
   const yesterday = DateTime.fromJSDate(new Date(new Date().setDate(new Date().getDate() - 1))).endOf('day') //Dia anterior ao atual
   // const yesterday = DateTime.fromJSDate(today).startOf('day') //Dia anterior ao atual
 
-  console.log("StartDateTime: ", StartDateTime)
-  console.log("StopDateTime: ", StopDateTime)
-  console.log("today: ", today)
-  console.log("yesterday: ", yesterday)
-
   //Cria a lista de views para o datePicker conforme a tab do formato de data ativo
-  let viewsList: DateView[] = ["year"];   
-  if (activeTab === dateTabEnum.Month || activeTab === dateTabEnum.Day) {
-    viewsList.push("month");
-  }
-  if (activeTab === dateTabEnum.Day) {
-    viewsList.push("day");
-  }
+  let viewsList: DateView[] = ["year", "month",  "day"];   
+  // if (activeTab === dateTabEnum.Month || activeTab === dateTabEnum.Day) {
+  //   viewsList.push("month");
+  // }
+  // if (activeTab === dateTabEnum.Day) {
+  //   viewsList.push("day");
+  // }
 
   return (
     <div className={styles.mainOptionsContainer}>
@@ -95,9 +90,7 @@ export const TrendChartVizualizationOptionsMenu = ({
                 handleChangeTrend({
                   StartDateTime: newDate
                     ?
-                    newDate.toString() === "Invalid Date"
-                      ? newDate.toString()
-                      : newDate.startOf('day').toFormat("yyyy-LL-dd TT")
+                    newDate.startOf('day').toFormat("yyyy-LL-dd TT")
                     : undefined,
                 })
               }
@@ -129,7 +122,6 @@ export const TrendChartVizualizationOptionsMenu = ({
               }
               maxDate={DateTime.fromMillis(today.toMillis())}
               onChange={(stopDateTime: DateTime | null) => {
-                console.log("stopDateTime: ", stopDateTime)
                 const newDate = stopDateTime ? 
                   activeTab === dateTabEnum.Day ? 
                   stopDateTime :
@@ -138,13 +130,10 @@ export const TrendChartVizualizationOptionsMenu = ({
                     stopDateTime.hasSame(yesterday, 'year') ? yesterday : stopDateTime.endOf('year')
                   : null;
 
-                console.log("newDate: ", newDate)
                 handleChangeTrend({
                   StopDateTime: newDate
-                    ? // ? stopDateTimeString.toISOString()
-                    newDate.toString() === "Invalid Date"
-                      ? newDate.toString()
-                      : newDate.endOf('day').toFormat("yyyy-LL-dd TT") //Altera as horas, minutos e segundos para o fim do dia
+                    ?
+                    newDate.endOf('day').toFormat("yyyy-LL-dd TT") //Altera as horas, minutos e segundos para o fim do dia
                     : undefined,
                 })
                }
@@ -164,7 +153,6 @@ export const TrendChartVizualizationOptionsMenu = ({
         activeItem={activeTab}
         handleChange={(tab: any) => {
           const newDates = getStartAndStopDateChart(tab, StartDateTime, StopDateTime);
-          console.log(newDates)
           handleChangeTrend({ activeTab: tab, StartDateTime: newDates[0],  StopDateTime: newDates[1]});
         }}
       />
