@@ -1,3 +1,4 @@
+
 import styles from "./VizualizationOptionsMenu.module.css";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';

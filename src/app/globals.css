@@ -57,7 +57,7 @@ body {
 }
 
 :root {
-  --color-black-main: #212529;
+  --color-black-main: #212529 ;
   --color-blackLight-main: #343a40;
   --color-greyDark-main: #495057;
   --color-grey-main: #6c757d;

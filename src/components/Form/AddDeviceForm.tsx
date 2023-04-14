@@ -15,6 +15,7 @@ type AddDeviceFormProps = {
   handleChange: (newState: Partial<CreateDeviceDto>) => void;
   handleClose: () => void;
   disableButton?: boolean;
+  disablePidField?: boolean;
 };
 
 export default function AddDeviceForm({
@@ -23,6 +24,7 @@ export default function AddDeviceForm({
   handleSubmit,
   handleChange,
   handleClose,
+  disablePidField
 }: AddDeviceFormProps) {
   const { pid, name, description, status, location } = formFields;
 
@@ -32,15 +34,16 @@ export default function AddDeviceForm({
         <CustomInput
           name="pid"
           title="PID"
-          placeholder="Insert Sensor PID"
+          placeholder="Insert Device PID"
           value={pid}
           onChange={(e) => handleChange({ pid: e.target.value })}
           error={errorForm?.Pid}
+          readOnly={disablePidField}
         />
         <CustomInput
           name="name"
           title="Name"
-          placeholder="Insert Sensor Name"
+          placeholder="Insert Device Name"
           value={name}
           onChange={(e) => handleChange({ name: e.target.value })}
           aditionalClass="col-span-2"

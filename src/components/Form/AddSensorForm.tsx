@@ -14,6 +14,7 @@ type AddSensorFormProps = {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (newState: Partial<SensorDto>) => void;
   handleClose: () => void;
+  disablePidField?: boolean
 };
 
 export default function AddSensorForm({
@@ -22,6 +23,7 @@ export default function AddSensorForm({
   handleSubmit,
   handleChange,
   handleClose,
+  disablePidField,
 }: AddSensorFormProps) {
   const { pid, name, description, status, calibrate, config, unit, unit_name, maxAlertValue, minAlertValue } =
     formFields;
@@ -36,6 +38,7 @@ export default function AddSensorForm({
           value={pid}
           onChange={(e) => handleChange({ pid: e.target.value })}
           error={errorForm?.Pid}
+          readOnly={disablePidField}
         />
         <CustomInput
           name="name"

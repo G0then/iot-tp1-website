@@ -11,13 +11,14 @@ type CustomInputProps = {
     aditionalClass?: string;
     error?: string | undefined;
     type?: React.HTMLInputTypeAttribute;
+    readOnly?: boolean
 }
 
-export default function CustomInput({ title, name, value, onChange, placeholder, aditionalClass, error, type }: CustomInputProps) {
+export default function CustomInput({ title, name, value, onChange, placeholder, aditionalClass, error, type, readOnly }: CustomInputProps) {
   return (
     <div className={classNames(aditionalClass,'flex flex-col space-y-1')}>
         <p className='font-semibold text-gray-700'>{title}</p>
-        <input type={type ?? "text"} className= {classNames(error ? "border-red-300" : "border-gray-300",'border rounded-lg p-2')} name={name} value={value} onChange={onChange} placeholder={placeholder}/>
+        <input type={type ?? "text"} className= {classNames(error ? "border-red-300" : "border-gray-300",'border rounded-lg p-2')} name={name} value={value} onChange={onChange} placeholder={placeholder} readOnly={readOnly}/>
         {error && <ErrorInformation text={error}/>}
     </div>
   )
