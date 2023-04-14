@@ -18,7 +18,7 @@ export default function CustomInput({ title, name, value, onChange, placeholder,
   return (
     <div className={classNames(aditionalClass,'flex flex-col space-y-1')}>
         <p className='font-semibold text-gray-700'>{title}</p>
-        <input type={type ?? "text"} className= {classNames(error ? "border-red-300" : "border-gray-300",'border rounded-lg p-2')} name={name} value={value} onChange={onChange} placeholder={placeholder} readOnly={readOnly}/>
+        <input type={type ?? "text"} className= {classNames(error ? "border-red-300" : "border-gray-300", readOnly ? "bg-gray-200 text-gray-500" : "bg-white", 'border rounded-lg p-2')} name={name} value={value} onChange={onChange} placeholder={placeholder} readOnly={readOnly}/>
         {error && <ErrorInformation text={error}/>}
     </div>
   )
