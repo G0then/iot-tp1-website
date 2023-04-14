@@ -173,6 +173,16 @@ export default function DeviceSensorInfo({
   const columns: GridColDef[] = useMemo(
     () => [
       {
+        field: "pid",
+        headerName: "Sensor Pid",
+        // minWidth: 350,
+        flex: 1,
+        // filterable: false,
+        // resizable: true,
+        headerAlign: "left",
+        // align: 'center',
+      },
+      {
         field: "name",
         headerName: "Sensor Name",
         // minWidth: 350,
@@ -315,6 +325,7 @@ export default function DeviceSensorInfo({
             handleSubmit={handleEdit}
             handleChange={handleChange}
             handleClose={handleCloseEditSensorModal}
+            disablePidField
           />
         </CustomModal>
  

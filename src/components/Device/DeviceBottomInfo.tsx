@@ -169,6 +169,7 @@ export default function DeviceBottomInfo({
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           handleClose={handleCloseEditDeviceModal}
+          disablePidField
         />
       </CustomModal>
     </>
